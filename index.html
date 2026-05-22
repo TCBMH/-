@@ -31,6 +31,7 @@
   .btn-row { display:flex; gap:0.6rem; margin-bottom:0.5rem; }
   .gen-btn { flex:1; padding:0.7rem; border-radius:10px; border:1px solid var(--accent); background:rgba(108,92,231,0.1); color:var(--accent2); font-size:0.95rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
   .gen-btn:hover { background:rgba(108,92,231,0.2); }
+  .gen-btn:disabled { opacity:0.5; cursor:not-allowed; }
   .start-btn { width:100%; padding:0.9rem; border-radius:12px; border:none; background:linear-gradient(135deg,var(--accent),#4a3dd6); color:#fff; font-size:1.1rem; font-weight:600; cursor:pointer; transition:transform 0.15s,box-shadow 0.15s; }
   .start-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(108,92,231,0.4); }
   .api-config { display:block; margin-bottom:1rem; padding:1rem; background:var(--surface2); border-radius:10px; border:1px solid var(--border); }
@@ -92,7 +93,7 @@
   .speech-bubble { position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:0.5rem 0.7rem; font-size:0.75rem; max-width:220px; line-height:1.4; color:var(--text); box-shadow:0 4px 12px rgba(0,0,0,0.3); opacity:0; pointer-events:none; transition:opacity 0.3s; z-index:10; }
   .speech-bubble::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:6px solid transparent; border-top-color:var(--surface2); }
   .seat.speaking .speech-bubble { opacity:1; }
-  .chat-panel { width:420px; border-left:1px solid var(--border); display:flex; flex-direction:column; background:var(--surface); flex-shrink:0; }
+  .chat-panel { width:480px; border-left:1px solid var(--border); display:flex; flex-direction:column; background:var(--surface); flex-shrink:0; }
   .chat-panel-header { padding:0.8rem 1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .chat-panel-header span { font-weight:600; font-size:0.95rem; }
   .chat-messages { flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:0.8rem; }
@@ -105,6 +106,7 @@
   .msg-body { flex:1; min-width:0; }
   .msg-header { display:flex; align-items:center; gap:0.4rem; margin-bottom:0.2rem; flex-wrap:wrap; }
   .msg-name { font-size:0.8rem; font-weight:600; }
+  .msg-role { font-size:0.68rem; color:var(--text2); font-style:italic; }
   .msg-action { font-size:0.68rem; padding:0.1rem 0.35rem; border-radius:3px; font-weight:500; }
   .msg-action.a-反驳 { background:rgba(225,112,85,0.15); color:var(--red); }
   .msg-action.a-质疑 { background:rgba(253,203,110,0.15); color:var(--orange); }
@@ -112,16 +114,38 @@
   .msg-action.a-支持 { background:rgba(0,184,148,0.15); color:var(--green); }
   .msg-action.a-追问 { background:rgba(0,206,201,0.15); color:var(--cyan); }
   .msg-action.a-陈述 { background:rgba(139,143,168,0.15); color:var(--text2); }
+  .msg-action.a-案例 { background:rgba(253,121,168,0.15); color:#fd79a8; }
   .msg-text { font-size:0.88rem; line-height:1.6; color:var(--text); word-break:break-word; }
+  .msg-example { font-size:0.82rem; color:var(--cyan); margin-top:0.3rem; padding:0.3rem 0.6rem; background:rgba(0,206,201,0.06); border-left:2px solid var(--cyan); border-radius:0 4px 4px 0; }
   .msg-tldr { font-size:0.78rem; color:var(--orange); margin-top:0.3rem; padding:0.25rem 0.5rem; background:rgba(253,203,110,0.06); border-left:2px solid var(--orange); border-radius:0 4px 4px 0; }
   .msg-time { font-size:0.7rem; color:var(--text2); margin-top:0.2rem; }
   .msg.user-msg .msg-name { color:var(--cyan); }
   .msg.moderator-msg .msg-name { color:var(--moderator); }
   .msg.system-msg .msg-text { color:var(--text2); font-style:italic; font-size:0.82rem; }
   .msg.system-msg .msg-avatar { background:var(--surface2)!important; font-size:0.7rem; }
+  .msg.user-prompt-msg { border-left:2px solid var(--cyan); padding-left:0.5rem; }
   .ascii-chart { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.8rem; margin:0.4rem 0; font-family:'Courier New',monospace; font-size:0.76rem; line-height:1.5; white-space:pre; overflow-x:auto; color:var(--cyan); }
   .guiding-q { background:rgba(253,203,110,0.08); border:1px solid rgba(253,203,110,0.2); border-radius:6px; padding:0.35rem 0.6rem; margin:0.3rem 0; font-size:0.85rem; color:var(--moderator); }
+  .angles-tracker { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.6rem 0.8rem; margin:0.4rem 0; }
+  .angles-tracker-title { font-size:0.78rem; color:var(--text2); margin-bottom:0.4rem; }
+  .angle-tag { display:inline-block; padding:0.15rem 0.5rem; border-radius:12px; font-size:0.72rem; margin:0.15rem; }
+  .angle-tag.explored { background:rgba(0,184,148,0.12); color:var(--green); border:1px solid rgba(0,184,148,0.3); }
+  .angle-tag.current { background:rgba(108,92,231,0.12); color:var(--accent2); border:1px solid rgba(108,92,231,0.3); }
+  .user-turn-banner { background:rgba(0,206,201,0.08); border:1px solid rgba(0,206,201,0.25); border-radius:8px; padding:0.5rem 0.8rem; margin:0.4rem 0; text-align:center; color:var(--cyan); font-size:0.85rem; animation:fadeIn 0.3s; }
   .chat-input-area { padding:0.8rem 1rem; border-top:1px solid var(--border); flex-shrink:0; }
+  .quick-actions { display:flex; gap:0.4rem; margin-bottom:0.5rem; flex-wrap:wrap; }
+  .quick-btn { padding:0.35rem 0.65rem; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; font-size:0.78rem; transition:all 0.15s; white-space:nowrap; }
+  .quick-btn:hover { border-color:var(--accent); color:var(--accent2); }
+  .quick-btn.q-challenge { border-color:rgba(225,112,85,0.4); color:var(--red); }
+  .quick-btn.q-challenge:hover { background:rgba(225,112,85,0.1); }
+  .quick-btn.q-agree { border-color:rgba(0,184,148,0.4); color:var(--green); }
+  .quick-btn.q-agree:hover { background:rgba(0,184,148,0.1); }
+  .quick-btn.q-example { border-color:rgba(0,206,201,0.4); color:var(--cyan); }
+  .quick-btn.q-example:hover { background:rgba(0,206,201,0.1); }
+  .quick-btn.q-redirect { border-color:rgba(253,203,110,0.4); color:var(--orange); }
+  .quick-btn.q-redirect:hover { background:rgba(253,203,110,0.1); }
+  .quick-btn.q-ask { border-color:rgba(108,92,231,0.4); color:var(--accent2); }
+  .quick-btn.q-ask:hover { background:rgba(108,92,231,0.1); }
   .input-row { display:flex; gap:0.5rem; align-items:flex-end; }
   .chat-input-area textarea { flex:1; padding:0.65rem 0.9rem; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:inherit; font-size:0.9rem; resize:none; outline:none; min-height:40px; max-height:120px; line-height:1.4; }
   .chat-input-area textarea:focus { border-color:var(--accent); }
@@ -142,49 +166,57 @@
   .status-badge.idle { background:rgba(139,143,168,0.1); color:var(--text2); }
   .status-badge.ended { background:rgba(225,112,85,0.1); color:var(--red); }
   .status-badge.synthesizing { background:rgba(253,203,110,0.1); color:var(--moderator); }
+  .status-badge.user-turn { background:rgba(0,206,201,0.1); color:var(--cyan); }
   .status-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
   .status-badge.running .status-dot { animation:blink 1.2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  @media(max-width:900px) { .meeting-body{flex-direction:column;} .chat-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:50vh;} .roundtable-container{width:320px;height:320px;} .avatar{width:42px;height:42px;font-size:1.1rem;} .table-surface{width:120px;height:120px;} }
+  .gen-loading { display:flex; align-items:center; gap:0.5rem; padding:0.6rem; color:var(--accent2); font-size:0.85rem; }
+  .gen-loading .spinner { width:16px; height:16px; border:2px solid var(--border); border-top-color:var(--accent2); border-radius:50%; animation:spin 0.8s linear infinite; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  @media(max-width:900px) { .meeting-body{flex-direction:column;} .chat-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:50vh;} .roundtable-container{width:320px;height:320px;} .avatar{width:42px;height:42px;font-size:1.1rem;} .table-surface{width:120px;height:120px;} .quick-actions{gap:0.3rem;} .quick-btn{font-size:0.72rem;padding:0.3rem 0.5rem;} }
 </style>
 </head>
 <body>
 
 <div id="setup-screen">
   <h1>🪑 圆桌会议</h1>
-  <p class="subtitle">以「求真」为目标的深度对话</p>
+  <p class="subtitle">多视角深度研讨 · 行业专家碰撞真知</p>
   <div class="setup-card">
     <label>会议主题</label>
-    <input type="text" id="topic-input" placeholder="例如：AI是否拥有真正的创造力？" />
+    <input type="text" id="topic-input" placeholder="例如：开餐饮店选址和经营的关键决策" />
     <label>快速预设</label>
     <div class="presets">
-      <button class="preset-btn" data-topic="AI是否会取代人类的工作？" data-hint="技术乐观派与人文关怀者的碰撞">🤖 AI取代工作</button>
-      <button class="preset-btn" data-topic="创业公司应该追求快速增长还是可持续盈利？" data-hint="创业者、投资人的博弈">🚀 增长 vs 盈利</button>
-      <button class="preset-btn" data-topic="碳达峰目标下，经济增长与环保如何平衡？" data-hint="经济学家、环保人士的分歧">🌍 经济 vs 环保</button>
-      <button class="preset-btn" data-topic="AI是否拥有真正的创造力？" data-hint="艺术家、工程师、哲学家的对话">🎨 AI创造力</button>
+      <button class="preset-btn" data-topic="开餐饮店选址和经营的关键决策" data-hint="餐饮行业：海底捞张勇、巴奴杜中兵、麦当劳Ray Kroc等大佬论餐饮经营">🍜 开餐饮店</button>
+      <button class="preset-btn" data-topic="做产品应该追求极致还是先跑通商业模式？" data-hint="产品与创新：喜茶聂云宸、新荣记张勇等探讨产品主义与匠心">🎯 产品 vs 商业</button>
+      <button class="preset-btn" data-topic="创业公司应该追求快速增长还是可持续盈利？" data-hint="创业者与投资人对决：稻盛和夫、段永平、巴菲特等论增长与盈利">🚀 增长 vs 盈利</button>
+      <button class="preset-btn" data-topic="AI会颠覆哪些行业？普通人如何应对？" data-hint="科技前沿：任正非、张一鸣、马云等论AI与行业颠覆">🤖 AI颠覆行业</button>
+      <button class="preset-btn" data-topic="餐饮行业的标准化与匠心如何平衡？" data-hint="餐饮深度碰撞：新荣记张勇vs海底捞张勇，匠心与规模的博弈">⚖️ 标准化 vs 匠心</button>
+      <button class="preset-btn" data-topic="中国品牌出海的关键挑战和策略" data-hint="品牌出海：星巴克Howard Schultz、西贝贾国龙等论全球扩张">🌍 品牌出海</button>
     </div>
     <label>补充说明（可选）</label>
-    <textarea id="context-input" placeholder="背景信息、讨论重点…"></textarea>
+    <textarea id="context-input" placeholder="背景信息、你想了解的具体方面、行业偏好…"></textarea>
     <div class="section-divider">🤖 AI 模型</div>
     <div class="api-config" id="api-config">
-      <div class="hint">已内置 DeepSeek AI，开箱即用 🎉 也可换成自己的 API</div>
-      <input type="text" id="api-url" value="https://api.deepseek.com/v1/chat/completions" placeholder="API 地址" />
-      <input type="password" id="api-key" value="sk-0486a25961814f599641de21fb1559ba" placeholder="API Key" />
-      <input type="text" id="api-model" value="deepseek-chat" placeholder="模型名" />
+      <div class="hint">填写你的 API 配置，或点击下方预设快速填入</div>
+      <input type="text" id="api-url" value="" placeholder="API 地址（如 https://api.deepseek.com/v1/chat/completions）" />
+      <input type="password" id="api-key" value="" placeholder="API Key" />
+      <input type="text" id="api-model" value="" placeholder="模型名（如 deepseek-chat）" />
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.8rem;"><button class="gen-btn" id="preset-deepseek" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;border-color:var(--green);color:var(--green);">🟢 DeepSeek</button><button class="gen-btn" id="preset-openai" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;">🔵 OpenAI</button><button class="gen-btn" id="preset-custom" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;">⚙️ 自定义</button></div>
       <div style="display:flex;gap:0.5rem;align-items:center;">
         <button class="gen-btn" id="api-test-btn" style="flex:none;padding:0.4rem 1rem;font-size:0.85rem;">🔧 测试</button>
         <span class="api-status" id="api-status"></span>
       </div>
     </div>
-    <div class="section-divider">👥 嘉宾</div>
-    <div class="btn-row"><button class="gen-btn" id="gen-btn">🎲 根据主题生成嘉宾</button></div>
+    <div class="section-divider">👥 嘉宾 <span style="font-size:0.75rem;color:var(--text2);font-weight:400">（点击 ⇩ 快速添加真人嘉宾）</span></div>
+    <div class="btn-row"><button class="gen-btn" id="gen-btn">🎲 AI智能生成4位嘉宾</button></div>
+    <div id="gen-loading" style="display:none" class="gen-loading"><div class="spinner"></div><span>AI 正在生成行业专家嘉宾…</span></div>
     <div class="famous-row" id="famous-row"></div>
     <div id="guest-editor">
       <div class="guest-editor-title"><span>👥 嘉宾名单</span><span id="guest-count" style="font-size:0.8rem;color:var(--text2)"></span></div>
       <div id="guest-list"></div>
-      <button class="guest-add-btn" id="guest-add-btn">+ 添加自定义嘉宾</button>
+      <button class="guest-add-btn" id="guest-add-btn">+ 添加自定义嘉宾（也可以填真实人物）</button>
     </div>
-    <button class="start-btn" id="start-btn" style="margin-top:0.8rem">🚀 开始研讨</button>
+    <button class="start-btn" id="start-btn" style="margin-top:0.8rem">🚀 开始圆桌研讨</button>
   </div>
 </div>
 
@@ -199,11 +231,18 @@
       <div class="chat-panel-header"><span>💬 研讨记录</span><span style="font-size:0.75rem;color:var(--text2)" id="msg-count">0 条发言</span></div>
       <div class="chat-messages" id="chat-messages"></div>
       <div class="chat-input-area">
+        <div class="quick-actions">
+          <button class="quick-btn q-challenge" data-action="challenge">🔥 质疑</button>
+          <button class="quick-btn q-agree" data-action="agree">👍 认同</button>
+          <button class="quick-btn q-example" data-action="example">📌 举例子</button>
+          <button class="quick-btn q-redirect" data-action="redirect">🔄 换角度</button>
+          <button class="quick-btn q-ask" data-action="ask">❓ 追问</button>
+        </div>
         <div class="input-row">
-          <textarea id="user-input" placeholder="插话/提问… (Enter 发送)" rows="1"></textarea>
+          <textarea id="user-input" placeholder="发表你的看法… (Enter 发送)" rows="1"></textarea>
           <button class="send-btn" id="send-btn">➤</button>
         </div>
-        <div class="input-hint">指令：可=推进 | 深入=追问 | 止=暂停</div>
+        <div class="input-hint">你是讨论参与者，不只是旁听者！直接发言触发嘉宾回应</div>
       </div>
     </div>
   </div>
@@ -215,107 +254,332 @@
     <button class="ctrl-btn danger" id="end-btn">⏹ 结束</button>
   </div>
 </div>
-
 <script>
-const DEFAULT_API_URL='https://api.deepseek.com/v1/chat/completions';
-const DEFAULT_API_KEY='sk-0486a25961814f599641de21fb1559ba';
-const DEFAULT_API_MODEL='deepseek-chat';
-const API_TIMEOUT=45000;
-const SYNTH_EVERY=3;
+const DEFAULT_API_URL='';
+const DEFAULT_API_KEY='';
+const DEFAULT_API_MODEL='';
+const API_TIMEOUT=60000;
+const SYNTH_EVERY=4;
+const USER_TURN_EVERY=6;
 
 const COLORS=['#6c5ce7','#00b894','#e17055','#0984e3','#fdcb6e','#fd79a8','#00cec9','#d63031','#e84393','#55a3e8'];
-const EMOJIS=['🧑‍💻','👩‍🏫','👨‍💼','🧑‍🎓','👩‍💼','👨‍⚖️','🧑‍🎨','👷','🧐','🎯','🔮','🎤','🌱','📊','⚖️','💡','📚','🎓','🔧','🧠','🤓','👨‍💻','👩‍🔬','🎩','👑','💼','🕊️','🔥','🪶','📖'];
+const EMOJIS=['🧑‍💻','👩‍🏫','👨‍💼','🧑‍🎓','👩‍💼','👨‍⚖️','🧑‍🎨','👷','🧐','🎯','🔮','🎤','🌱','📊','⚖️','💡','📚','🎓','🔧','🧠','🤓','👨‍💻','👩‍🔬','🎩','👑','💼','🕊️','🔥','🪶','📖','🍜','☕','🛒','🏪','📊','🏦'];
 
-let state={topic:'',context:'',participants:[],userMessages:[],messages:[],isRunning:false,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI:true,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,roundNumber:0,guidingQuestion:'',deepening:false};
+let state={topic:'',context:'',participants:[],userMessages:[],messages:[],isRunning:false,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI:true,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,speechesSinceUserTurn:0,roundNumber:0,guidingQuestion:'',deepening:false,coveredAngles:[],currentAngle:'',pendingUserAction:null};
 let draftGuests=[];let speakCount={};
 
 const $=id=>document.getElementById(id);
-const topicInput=$('topic-input'),contextInput=$('context-input'),startBtn=$('start-btn'),topicTag=$('topic-tag'),statusBadge=$('status-badge'),roundtable=$('roundtable'),chatMessages=$('chat-messages'),userInput=$('user-input'),sendBtn=$('send-btn'),playBtn=$('play-btn'),pauseBtn=$('pause-btn'),deepenBtn=$('deepen-btn'),summarizeBtn=$('summarize-btn'),endBtn=$('end-btn'),backBtn=$('back-btn'),msgCount=$('msg-count'),guestEditor=$('guest-editor'),guestList=$('guest-list'),guestCount=$('guest-count'),genBtn=$('gen-btn'),guestAddBtn=$('guest-add-btn'),famousRow=$('famous-row'),apiUrl=$('api-url'),apiKey=$('api-key'),apiModel=$('api-model'),apiTestBtn=$('api-test-btn'),apiStatus=$('api-status'),aiTag=$('ai-tag');
+const topicInput=$('topic-input'),contextInput=$('context-input'),startBtn=$('start-btn'),topicTag=$('topic-tag'),statusBadge=$('status-badge'),roundtable=$('roundtable'),chatMessages=$('chat-messages'),userInput=$('user-input'),sendBtn=$('send-btn'),playBtn=$('play-btn'),pauseBtn=$('pause-btn'),deepenBtn=$('deepen-btn'),summarizeBtn=$('summarize-btn'),endBtn=$('end-btn'),backBtn=$('back-btn'),msgCount=$('msg-count'),guestEditor=$('guest-editor'),guestList=$('guest-list'),guestCount=$('guest-count'),genBtn=$('gen-btn'),genLoading=$('gen-loading'),guestAddBtn=$('guest-add-btn'),famousRow=$('famous-row'),apiUrl=$('api-url'),apiKey=$('api-key'),apiModel=$('api-model'),apiTestBtn=$('api-test-btn'),apiStatus=$('api-status'),aiTag=$('ai-tag');
 
 document.querySelectorAll('.preset-btn').forEach(b=>b.addEventListener('click',()=>{topicInput.value=b.dataset.topic;contextInput.value=b.dataset.hint;topicInput.style.borderColor='';}));
 topicInput.addEventListener('input',()=>{topicInput.style.borderColor='';});
 
-function updateButtons(){const r=state.isRunning,p=state.isPaused,e=state.isEnded;playBtn.disabled=!r||e;pauseBtn.disabled=!r||p||e;deepenBtn.disabled=!r||e;summarizeBtn.disabled=state.summarizing;endBtn.disabled=e;userInput.disabled=e;sendBtn.disabled=e;}
+function updateButtons(){const r=state.isRunning,p=state.isPaused,e=state.isEnded;playBtn.disabled=!r||e;pauseBtn.disabled=!r||p||e;deepenBtn.disabled=!r||e;summarizeBtn.disabled=state.summarizing;endBtn.disabled=e;userInput.disabled=e;sendBtn.disabled=e;document.querySelectorAll('.quick-btn').forEach(b=>b.disabled=e);}
 
 function isAnthropicAPI(url){return /anthropic/i.test(url);}
-function getAPIConfig(){return{url:apiUrl.value.trim()||DEFAULT_API_URL,key:apiKey.value.trim()||DEFAULT_API_KEY,model:apiModel.value.trim()||DEFAULT_API_MODEL};}
+function getAPIConfig(){return{url:apiUrl.value.trim(),key:apiKey.value.trim(),model:apiModel.value.trim()||'deepseek-chat'}};
 async function fetchWithTimeout(u,o,ms){const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);try{const r=await fetch(u,{...o,signal:c.signal});clearTimeout(t);return r;}catch(e){clearTimeout(t);if(e.name==='AbortError')throw new Error('请求超时');throw e;}}
 
 apiTestBtn.addEventListener('click',async()=>{const{url,key,model}=getAPIConfig();if(!url||!key){apiStatus.textContent='请填写地址和Key';apiStatus.className='api-status err';return;}apiStatus.textContent='测试中…';apiStatus.className='api-status testing';try{let r;if(isAnthropicAPI(url)){r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model,max_tokens:20,messages:[{role:'user',content:'hi'}]})},API_TIMEOUT);}else{r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages:[{role:'user',content:'hi'}],max_tokens:5})},API_TIMEOUT);}if(r.ok){apiStatus.textContent='✅ 连接成功';apiStatus.className='api-status ok';}else{const t=await r.text().catch(()=>'');apiStatus.textContent='❌ '+r.status+' '+t.slice(0,80);apiStatus.className='api-status err';}}catch(e){apiStatus.textContent='❌ '+e.message;apiStatus.className='api-status err';}});
 
-async function callLLM(messages){const{url,key,model}=getAPIConfig();if(!url||!key)throw new Error('API未配置');if(isAnthropicAPI(url)){let sys='';const cm=messages.filter(m=>{if(m.role==='system'){sys+=m.content+'\n';return false;}return true;}).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.content}));const body={model,max_tokens:600,messages:cm,temperature:0.85};if(sys.trim())body.system=sys.trim();const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.content?.[0]?.text?.trim()||'';}else{const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages,temperature:0.85,max_tokens:600})},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.choices?.[0]?.message?.content?.trim()||'';}}
+async function callLLM(messages){const{url,key,model}=getAPIConfig();if(!url||!key)throw new Error('API未配置');if(isAnthropicAPI(url)){let sys='';const cm=messages.filter(m=>{if(m.role==='system'){sys+=m.content+'\n';return false;}return true;}).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.content}));const body={model,max_tokens:800,messages:cm,temperature:0.85};if(sys.trim())body.system=sys.trim();const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.content?.[0]?.text?.trim()||'';}else{const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages,temperature:0.85,max_tokens:800})},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.choices?.[0]?.message?.content?.trim()||'';}}
 
-const FAMOUS={buffet:{name:'巴菲特',title:'投资家',stance:'长期价值投资，恐惧时贪婪',personality:'幽默睿智，爱用比喻',emoji:'🎩',catchphrase:'别人恐惧我贪婪',keywords:['投资','价值','长期','复利']},musk:{name:'马斯克',title:'企业家',stance:'用科技颠覆一切，第一性原理思考',personality:'大胆激进，天马行空',emoji:'🚀',catchphrase:'第一性原理告诉我一切皆有可能',keywords:['创新','颠覆','技术','效率']},jobs:{name:'乔布斯',title:'产品哲学家',stance:'极致产品主义，简约即力量',personality:'追求完美，直觉驱动',emoji:'🍎',catchphrase:'Stay hungry, stay foolish',keywords:['产品','设计','简约','极致']},munger:{name:'芒格',title:'思想家',stance:'多学科思维模型，逆向思考',personality:'犀利毒舌，善于反讽',emoji:'📚',catchphrase:'反过来想，总是反过来想',keywords:['思维模型','逆向','理性']},dalio:{name:'达利欧',title:'桥水基金创始人',stance:'极度透明，原则驱动',personality:'系统化思考者',emoji:'📊',catchphrase:'痛苦+反思=进步',keywords:['原则','系统','周期']},kahneman:{name:'卡尼曼',title:'行为心理学家',stance:'人类判断充满认知偏误',personality:'温和理性',emoji:'🧠',catchphrase:'我们往往过度自信',keywords:['偏误','认知','判断','理性']},confucius:{name:'孔子',title:'思想家·教育家',stance:'仁义礼智信，中庸之道',personality:'温和敦厚，循循善诱',emoji:'📖',catchphrase:'己所不欲，勿施于人',keywords:['仁义','礼','中庸','道德']},sfang:{name:'苏轼',title:'文学家',stance:'豁达乐观，随遇而安',personality:'豪放不羁，幽默洒脱',emoji:'🌙',catchphrase:'一蓑烟雨任平生',keywords:['豁达','乐观','自由','风骨']}};
+const FAMOUS={
+zhangyong_hd:{name:'张勇',title:'海底捞创始人',stance:'组织和人才是餐饮的根本，服务只是外在表现，员工激励才是内核',personality:'务实低调，直击本质，有时候很犀利',emoji:'🍲',catchphrase:'核心竞争力从来都不是服务',experience:'1994年在四川简阳用4张桌子起家，从电焊工做到千亿市值火锅帝国。曾因盲目扩张关店300家，又果断止损，2022年扭亏为盈赚13.73亿。倡导"双手改变命运"，用利他主义利润分享机制驱动店长培养店长'},
+jiaguolong:{name:'贾国龙',title:'西贝莜面村创始人',stance:'定位和品类决定一家餐厅的天花板，选对赛道比努力重要',personality:'爱折腾，表达欲极强，敢说敢做，常卷入舆论风波',emoji:'🍜',catchphrase:'折腾出一个新赛道',experience:'1988年退学投身餐饮，从内蒙古街边小吃店做到350家门店、年营收超62亿的西北菜第一品牌。4年花几千万换4次招牌寻找定位。8年9次尝试快餐副牌大部分失败，屡败屡战'},
+nieyunchen:{name:'聂云宸',title:'喜茶创始人',stance:'产品是起点，品牌是核心，运营是基础——年轻人要的不仅是好喝',personality:'极致的产品偏执狂，内向但思路清晰，拒绝跟风',emoji:'🍵',catchphrase:'好产品自己会说话',experience:'2012年21岁时在广东江门小巷投资5万元开出第一家皇茶（后更名喜茶），从零研究茶叶搭配芝士奶盖开创芝士茶品类。拒绝加盟坚持直营，估值做到600亿'},
+duzhongbing:{name:'杜中兵',title:'巴奴毛肚火锅创始人',stance:'产品主义才是餐饮的根，服务只是锦上添花，核心单品必须做到极致',personality:'自信偏执，要坚持品质就不怕成本高，敢正面硬刚海底捞',emoji:'🥘',catchphrase:'服务不是巴奴的特色，毛肚和菌汤才是',experience:'2001年在河南安阳创立巴奴，砍掉加盟只做直营。死磕毛肚和菌汤两个单品，把毛肚从配菜做成了全国第三大火锅品牌。客单价138元远超海底捞97.5元，但利润率反更低——产品主义的代价'},
+zhangyong_xrj:{name:'张勇(新荣记)',title:'新荣记创始人',stance:'食必求真然后至美，宁可做得小而精，绝不为规模牺牲品质',personality:'低调务实，对食材近乎偏执，从容不急躁',emoji:'⭐',catchphrase:'食必求真，然后至美',experience:'1995年在台州从海鲜排档起步，27年只开40多家店，但摘下中国内地唯一米其林三星中餐厅。坚持自建农场和海产基地，"做不大，但希望活好一点，活久一点"'},
+yanglijuan:{name:'杨利娟',title:'前海底捞CEO',stance:'从一线摸爬出来的经验比任何理论都靠谱，执行力和人是最关键的',personality:'坚韧沉稳，不服输，用行动说话',emoji:'💪',catchphrase:'用尽今天的力气，明天就会变得更强',experience:'17岁当服务员月薪160元，19岁成店长，21岁被派往西安开拓省外第一家门店。从服务员做到CEO身家超百亿，主导啄木鸟计划关店止损，后拯救海外业务扭亏为盈'},
+renzhengfei:{name:'任正非',title:'华为创始人',stance:'危机意识是生存之本，核心技术必须自主，活下来是最高纲领',personality:'军人作风，深沉内敛，极度危机意识，战略定力极强',emoji:'📱',catchphrase:'华为的最低和最高纲领都是活下来',experience:'43岁时被国企开除负债200万，凑2.1万创立华为。30多年把华为从倒卖交换机做到全球通信设备第一，面对美国制裁断供芯片，靠海思备胎转正和鸿蒙系统逆势求生'},
+mayun:{name:'马云',title:'阿里巴巴创始人',stance:'客户第一员工第二股东第三，让天下没有难做的生意',personality:'激情四射，善于布道讲故事，战略眼光超长',emoji:'🛒',catchphrase:'今天很残酷，明天更残酷，后天很美好',experience:'1999年杭州公寓18人凑50万起步，被拒绝37次融资。从B2B到淘宝打败eBay，到支付宝颠覆金融，到阿里云布局未来。中国互联网的拓荒者'},
+zhangyiming:{name:'张一鸣',title:'字节跳动创始人',stance:'延迟满足感是克服人性弱点，用算法和数据驱动一切决策',personality:'极其理性克制，追求极致效率，数据思维',emoji:'🎯',catchphrase:'延迟满足感的本质是克服人性的弱点',experience:'2012年创立字节跳动，从今日头条到抖音/TikTok，用推荐算法颠覆内容分发。8年做到全球月活超19亿，成为中国最值值钱的未上市公司。禁用"总"称谓，务实浪漫'},
+huangzheng:{name:'黄峥',title:'拼多多创始人',stance:'60分万岁，抓住最广大普通人的真实需求比什么都重要',personality:'数学思维极强，反精英视角，接地气又有深度',emoji:'🛍️',catchphrase:'只有五环内的人才会说下沉市场',experience:'谷歌工程师出身，2015年创立拼好货后合并为拼多多，3年上市5年用户超阿里。左手《穷查理宝典》右手《毛泽东选集》，用社交裂变+农产品直连打穿电商格局'},
+raykroc:{name:'Ray Kroc',title:'麦当劳缔造者',stance:'你不是做汉堡生意的，你是做房地产的——控制位置才是核心',personality:'强势进取，商业嗅觉极其敏锐，81岁仍在工作',emoji:'🍔',catchphrase:'你是在做房地产生意',experience:'52岁时还是奶昔机推销员，发现麦当劳兄弟的汉堡店后买下特许经营权。首创房地产模式：拥有门店土地再租给加盟商。20年内把麦当劳开到全球数千家，重新定义了快餐和特许经营'},
+howardschultz:{name:'Howard Schultz',title:'星巴克创始人',stance:'咖啡不是产品，第三空间的体验才是——善待员工就是善待生意',personality:'理想主义与商业嗅觉并存，对员工福利偏执',emoji:'☕',catchphrase:'不是在咖啡里做人情，是在人情里卖咖啡',experience:'成长于纽约布鲁克林贫民区，父亲是没医保的临时工。1987年借160万美元买下星巴克，为所有员工（含兼职）提供医保和股票期权。被拒绝217次才融到资，最终做到全球3.5万家店'},
+dannymeyer:{name:'Danny Meyer',title:'Shake Shack/Union Square Hospitality创始人',stance:'服务是你为客人做的事，款待是你让客人感受到的方式——51%款待+49%技术',personality:'温和优雅，以人文本，美国餐饮界最受尊敬的人物之一',emoji:'🌭',catchphrase:'Setting the Table——款待的力量超越服务',experience:'从纽约一家小餐馆Union Square Cafe起步，开创"开明款待"哲学，把Shake Shack从热狗车做到全球数百家门店的新式快餐标杆。著《Setting the Table》成为餐饮管理圣经'},
+inamorikazuo:{name:'稻盛和夫',title:'京瓷/KDDI创始人、拯救日航',stance:'敬天爱人，付出不亚于任何人的努力——经营的本质是提高心性',personality:'哲学型企业家的极致，以心为本，一生践行利他',emoji:'🏔️',catchphrase:'敬天爱人',experience:'27岁创立京瓷，52岁创立KDDI，两家都进世界500强。78岁出山拯救破产的日本航空，仅用一年就扭亏为盈创历史最高利润。独创阿米巴经营体系，把组织划小让每个员工都像经营者思考'},
+gordonramsay:{name:'Gordon Ramsay',title:'米其林主厨/餐饮帝国',stance:'对平庸零容忍——要么做到最好，要么别做',personality:'暴烈专注完美主义，厨房暴君但也是最成功的餐饮企业家',emoji:'👨‍🍳',catchphrase:'这坨垃圾简直是对食材的侮辱',experience:'从格拉斯哥穷小子做到全球7颗米其林星。《Kitchen Nightmares》帮100+家濒临倒闭的餐厅诊断问题。核心发现：80%的餐厅问题不是食物，而是管理、傲慢和脱离现实'},
+buffett:{name:'巴菲特',title:'伯克希尔·哈撒韦 CEO',stance:'别人恐惧我贪婪，长期价值投资是唯一正道',personality:'幽默睿智，生活简朴，爱用比喻',emoji:'🎩',catchphrase:'别人恐惧我贪婪',experience:'11岁买第一支股票，操盘伯克希尔数十年年化收益20%。收购过Dairy Queen、See\'s Candies等餐饮品牌，对消费行业理解极深'},
+musk:{name:'马斯克',title:'Tesla/SpaceX创始人',stance:'第一性原理思考一切，用科技颠覆一切',personality:'大胆激进，天马行空，极端效率主义',emoji:'🚀',catchphrase:'第一性原理告诉我一切皆有可能',experience:'从PayPal到Tesla到SpaceX，以极端效率和创新方式颠覆传统行业。5步工作法：质疑一切需求、删掉一切可以删的、简化、加速、自动化'}
+};
 
 function renderFamousButtons(){famousRow.innerHTML='';Object.entries(FAMOUS).forEach(([k,p])=>{const added=draftGuests.some(g=>g.name===p.name);const btn=document.createElement('button');btn.className='famous-btn '+(added?'added':'');btn.textContent=p.emoji+' '+p.name;btn.addEventListener('click',()=>{if(added)return;draftGuests.push({...p});renderGuestEditor();renderFamousButtons();});famousRow.appendChild(btn);});}
 renderFamousButtons();
+// ===== AI-POWERED GUEST GENERATION =====
+async function generateGuestsAI(topic,context){
+  const prompt=`你是一个圆桌会议的嘉宾策划师。根据讨论主题，生成4位风格各异、有真实行业经验的嘉宾。
 
-const POOLS={tech:[{name:'张明远',title:'AI研究员',stance:'技术乐观派，AI带来更多机遇',personality:'理性冷静',emoji:'🧑‍💻'},{name:'李思涵',title:'科技伦理学者',stance:'技术必须有伦理边界',personality:'温和但坚定',emoji:'👩‍🏫'}],business:[{name:'王建国',title:'创业者',stance:'增长是生存的前提',personality:'激进有魄力',emoji:'👨‍💼'},{name:'周婉如',title:'治理顾问',stance:'可持续盈利更重要',personality:'沉稳老练',emoji:'👩‍💼'}],social:[{name:'林正义',title:'政策学者',stance:'制度设计是根本',personality:'逻辑严密',emoji:'👨‍⚖️'}]};
+主题：${topic}
+${context?'补充说明：'+context:''}
 
-function generateDraftGuests(topic,count,context){const ft=(topic+' '+(context||'')).toLowerCase();let sel;if(/ai|人工|机器|技术|取代|算法|科技|大模型|创造力/.test(ft))sel=[...POOLS.tech];else if(/创业|公司|增长|盈利|商业/.test(ft))sel=[...POOLS.business];else sel=[...POOLS.tech.slice(0,2),...POOLS.business.slice(0,1)];for(let i=sel.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[sel[i],sel[j]]=[sel[j],sel[i]];}while(sel.length<count)sel.push({name:'嘉宾'+(sel.length+1),title:'讨论者',stance:'独立思考',personality:'理性客观',emoji:EMOJIS[sel.length%EMOJIS.length]});draftGuests=sel.slice(0,count).map(g=>({...g}));renderGuestEditor();renderFamousButtons();}
+要求：
+1. 嘉宾必须是该主题相关行业的**真实知名人物**或极具代表性的从业者（如张勇、贾国龙、杜中兵、Ray Kroc、Howard Schultz、稻盛和夫等），不要用"某老板""某顾问"等虚拟角色，要有真名真姓
+2. 每位嘉宾必须有具体的行业经验描述（比如经营过什么店、做过什么项目）
+3. 嘉宾之间立场要有明显差异，能产生碰撞
+4. 性格要鲜明各异
+
+严格按以下JSON格式输出（不要其他内容）：
+[{"name":"姓名","title":"身份（含行业）","stance":"核心立场（一句话）","personality":"性格特点","emoji":"一个emoji","experience":"具体行业经验和案例来源（2-3句话）","catchphrase":"代表口头禅"}]`;
+
+  try{
+    const raw=await callLLM([{role:'system',content:prompt},{role:'user',content:'请生成嘉宾。'}]);
+    const jsonStr=raw.replace(/```json?\n?/g,'').replace(/```/g,'').trim();
+    const guests=JSON.parse(jsonStr);
+    if(!Array.isArray(guests)||guests.length<2)throw new Error('格式错误');
+    return guests.map(g=>({
+      name:g.name||'嘉宾',title:g.title||'',stance:g.stance||'',personality:g.personality||'',
+      emoji:g.emoji||EMOJIS[Math.floor(Math.random()*EMOJIS.length)],
+      experience:g.experience||'',catchphrase:g.catchphrase||'',keywords:g.keywords||[]
+    }));
+  }catch(e){
+    console.error('AI嘉宾生成失败:',e);
+    return null;
+  }
+}
+
+function generateDraftGuestsLocal(topic,count,context){
+  const ft=(topic+' '+(context||'')).toLowerCase();
+  const POOLS={
+    restaurant:[
+      {name:'张勇',title:'海底捞创始人',stance:'组织和人才是根本，员工激励才是内核',personality:'务实低调，直击本质',emoji:'🍲',experience:'1994年4张桌子起家→千亿市值。关店300家又扭亏为盈。"双手改变命运"机制',catchphrase:'核心竞争力从来不是服务',keywords:['组织','员工','扩张']},
+      {name:'贾国龙',title:'西贝莜面村创始人',stance:'定位和品类决定天花板，选赛道比努力重要',personality:'爱折腾，表达欲强',emoji:'🍜',experience:'4年换4次招牌找定位，8年9次试快餐副牌大部分失败。350家门店年营收62亿',catchphrase:'折腾出一个新赛道',keywords:['定位','品牌','折腾']},
+      {name:'杜中兵',title:'巴奴毛肚火锅创始人',stance:'产品主义才是根，核心单品做到极致',personality:'偏执自信，敢硬刚海底捞',emoji:'🥘',experience:'砍掉加盟只做直营，死磕毛肚菌汤。客单价138元超海底捞但利润率更低',catchphrase:'服务不是特色，毛肚和菌汤才是',keywords:['产品主义','单品','直营']},
+      {name:'聂云宸',title:'喜茶创始人',stance:'产品是起点，品牌是核心',personality:'产品偏执狂，拒绝跟风',emoji:'🍵',experience:'21岁5万元小巷起步开创芝士茶品类，坚持直营做到估值600亿',catchphrase:'好产品自己会说话',keywords:['产品','品牌','创新']}
+    ],
+    food_biz:[
+      {name:'Ray Kroc',title:'麦当劳缔造者',stance:'控制位置才是核心，你不是做汉堡生意是做房地产',personality:'强势敏锐，81岁仍在拼',emoji:'🍔',experience:'52岁还是奶昔机推销员，买下麦当劳特许经营权首创地产+加盟模式20年开遍全球',catchphrase:'你是在做房地产生意',keywords:['特许经营','地产','标准化']},
+      {name:'Howard Schultz',title:'星巴克创始人',stance:'第三空间体验>咖啡本身，善待员工就是善待生意',personality:'理想主义+商业嗅觉',emoji:'☕',experience:'布鲁克林贫民区长大的穷小子，被拒217次才融到资。为兼职员工提供医保和股票，做全球35000家店',catchphrase:'不是在咖啡里做人情，是在人情里卖咖啡',keywords:['体验','员工福利','品牌']},
+      {name:'Danny Meyer',title:'Shake Shack创始人',stance:'51%款待+49%技术——让客人感受到的方式比做的事情更重要',personality:'温和优雅，以人为本',emoji:'🌭',experience:'从一家纽约小餐馆到Shake Shack全球数百家门店，开创"开明款待"哲学，《Setting the Table》成餐饮管理圣经',catchphrase:'款待的力量超越服务',keywords:['款待','体验','管理']},
+      {name:'Gordon Ramsay',title:'米其林主厨/餐饮企业家',stance:'对平庸零容忍，要么最好要么别做',personality:'暴烈完美主义',emoji:'👨‍🍳',experience:'7颗米其林星。《Kitchen Nightmares》帮100+家倒闭餐厅诊断，发现80%问题不是食物而是管理和傲慢',catchphrase:'对平庸零容忍',keywords:['品质','管理','危机']}
+    ],
+    tech:[
+      {name:'任正非',title:'华为创始人',stance:'危机意识是生存之本，核心技术必须自主',personality:'军人作风，深沉内敛，战略定力极强',emoji:'📱',experience:'43岁被开除欠债200万创立华为，面对美国制裁靠海思备胎和鸿蒙逆势求生',catchphrase:'最低和最高纲领都是活下来',keywords:['危机','自主','活下去']},
+      {name:'张一鸣',title:'字节跳动创始人',stance:'延迟满足感是克服人性弱点，算法驱动一切',personality:'极其理性，追求极致效率',emoji:'🎯',experience:'从今日头条到抖音/TikTok用推荐算法颠覆内容分发，8年全球月活19亿',catchphrase:'延迟满足感的本质是克服人性弱点',keywords:['算法','效率','理性']},
+      {name:'马云',title:'阿里巴巴创始人',stance:'客户第一员工第二股东第三',personality:'激情四射，善于布道',emoji:'🛒',experience:'公寓18人凑50万起步，被拒37次融资，从B2B到淘宝到支付宝到阿里云',catchphrase:'今天很残酷明天更残酷后天很美好',keywords:['使命','生态','长期']},
+      {name:'黄峥',title:'拼多多创始人',stance:'60分万岁，抓住普通人真实需求比什么都重要',personality:'数学思维极强，反精英视角',emoji:'🛍️',experience:'3年上市5年用户超阿里，用社交裂变+农产品直连打穿电商格局',catchphrase:'只有五环内的人才会说下沉市场',keywords:['需求','性价比','裂变']}
+    ],
+    business:[
+      {name:'稻盛和夫',title:'京瓷/KDDI创始人',stance:'敬天爱人，付出不亚于任何人的努力',personality:'哲学型企业家极致，以心为本',emoji:'🏔️',experience:'27岁创京瓷52岁创KDDI两家世界500强。78岁出山一年拯救破产日航创历史最高利润',catchphrase:'敬天爱人',keywords:['利他','心性','阿米巴']},
+      {name:'段永平',title:'步步高创始人/投资人',stance:'做对的事情然后把事情做对——不懂不做',personality:'大道至简，极其理性',emoji:'🎱',experience:'从小霸王到步步高培育出OPPOvivo拼多多。40多岁退休做投资重仓苹果茅台赚百倍',catchphrase:'做对的事情，把事情做对',keywords:['本分','价值投资','长期']},
+      {name:'巴菲特',title:'伯克希尔CEO',stance:'别人恐惧我贪婪，长期价值投资',personality:'幽默睿智生活简朴',emoji:'🎩',experience:'11岁买第一支股票，数十年年化20%。收购Dairy Queen等餐饮品牌',catchphrase:'别人恐惧我贪婪',keywords:['价值','复利','长期']},
+      {name:'马斯克',title:'Tesla/SpaceX创始人',stance:'第一性原理思考一切',personality:'大胆激进天马行空',emoji:'🚀',experience:'PayPal→Tesla→SpaceX，以极端效率颠覆行业。5步法：质疑一切→删→简化→加速→自动化',catchphrase:'第一性原理告诉我一切皆有可能',keywords:['颠覆','效率','第一性']}
+    ],
+    innovation:[
+      {name:'张勇(新荣记)',title:'新荣记创始人',stance:'食必求真然后至美，宁可小而精',personality:'低调偏执，从容不急',emoji:'⭐',experience:'27年只开40+店摘中国内地唯一米其林三星中餐。自建农场海产基地',catchphrase:'食必求真然后至美',keywords:['品质','米其林','食材']},
+      {name:'杨利娟',title:'前海底捞CEO',stance:'一线经验比理论靠谱，执行力最关键',personality:'坚韧不服输',emoji:'💪',experience:'17岁服务员→CEO身家百亿，主导关店止损后拯救海外业务扭亏',catchphrase:'用尽今天的力气明天会更强',keywords:['执行','一线','逆袭']},
+      {name:'Elon Musk',title:'Tesla/SpaceX创始人',stance:'用第一性原理拆解一切',personality:'极端效率主义',emoji:'🚀',experience:'颠覆汽车和航天两个重资产行业，Neuralink脑机接口',catchphrase:'质疑一切需求',keywords:['颠覆','第一性','效率']},
+      {name:'稻盛和夫',title:'京瓷/KDDI创始人',stance:'经营即提高心性',personality:'哲学家',emoji:'🏔️',experience:'两家世界500强+拯救日航，独创阿米巴经营',catchphrase:'敬天爱人',keywords:['心性','利他','阿米巴']}
+    ]
+  };
+  let sel;
+  if(/餐饮|开店|餐厅|食品|外卖|咖啡|奶茶|火锅|小吃|饭店|厨师|食堂|食材|经营|选址|门店|连锁|菜单|服务员|翻台|客单|毛肚|茶饮/.test(ft)){sel=[...POOLS.restaurant,...POOLS.food_biz];}
+  else if(/科技|技术|AI|互联网|算法|数字化|软件|芯片|网络|数码|创业|创新|颠覆|字节|华为|阿里|腾讯|微软/.test(ft)){sel=[...POOLS.tech];}
+  else if(/商业|管理|经营|领导|战略|投资|融资|公司|企业|扩张|盈利|增长|品牌|营销/.test(ft)){sel=[...POOLS.business];}
+  else if(/创新|产品|设计|体验|品质|匠人|精酿|精品|新消费|消费升级/.test(ft)){sel=[...POOLS.innovation];}
+  else{sel=[...POOLS.restaurant,...POOLS.food_biz,...POOLS.tech.slice(0,2)];}
+  for(let i=sel.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[sel[i],sel[j]]=[sel[j],sel[i]];}
+  while(sel.length<count)sel.push({name:'嘉宾'+(sel.length+1),title:'讨论者',stance:'独立思考',personality:'理性客观',emoji:EMOJIS[sel.length%EMOJIS.length],experience:'',catchphrase:'',keywords:[]});
+  draftGuests=sel.slice(0,count).map(g=>({...g}));
+  renderGuestEditor();renderFamousButtons();
+}
+
+async function handleGenerateGuests(){
+  const t=topicInput.value.trim();
+  if(!t){topicInput.style.borderColor='var(--red)';return;}
+  genBtn.disabled=true;genLoading.style.display='flex';genBtn.textContent='⏳ 生成中…';
+  const{url,key}=getAPIConfig();
+  if(url&&key){
+    try{
+      const guests=await generateGuestsAI(t,contextInput.value.trim());
+      if(guests&&guests.length>=2){
+        draftGuests=guests;
+        renderGuestEditor();renderFamousButtons();
+      }else{
+        generateDraftGuestsLocal(t,4,contextInput.value.trim());
+        addSys('⚠️ AI生成格式异常，已使用本地预设');
+      }
+    }catch(e){
+      generateDraftGuestsLocal(t,4,contextInput.value.trim());
+    }
+  }else{
+    generateDraftGuestsLocal(t,4,contextInput.value.trim());
+  }
+  genBtn.disabled=false;genLoading.style.display='none';genBtn.textContent='🎲 AI智能生成4位嘉宾';
+}
 
 function esc(s){return(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
-function renderGuestEditor(){guestEditor.classList.add('visible');guestCount.textContent=draftGuests.length+' 位';guestList.innerHTML='';draftGuests.forEach((g,i)=>{const isF=Object.values(FAMOUS).some(f=>f.name===g.name);const card=document.createElement('div');card.className='guest-card';if(isF)card.style.borderColor='rgba(253,203,110,0.3)';card.innerHTML='<div class="guest-card-header"><button class="guest-emoji-btn" data-i="'+i+'">'+g.emoji+'</button><input type="text" value="'+esc(g.name)+'" placeholder="姓名" data-field="name" data-i="'+i+'" />'+((isF)?'<span style="font-size:0.7rem;color:var(--orange);flex-shrink:0">⭐</span>':'')+'<button class="guest-remove-btn" data-i="'+i+'">×</button></div><div class="guest-fields"><input type="text" value="'+esc(g.title)+'" placeholder="身份" data-field="title" data-i="'+i+'" /><input type="text" value="'+esc(g.stance)+'" placeholder="立场" data-field="stance" data-i="'+i+'" class="wide" /></div>';guestList.appendChild(card);});guestList.querySelectorAll('input[data-field]').forEach(inp=>{inp.addEventListener('input',()=>{const i=parseInt(inp.dataset.i),f=inp.dataset.field;if(draftGuests[i])draftGuests[i][f]=inp.value;});});guestList.querySelectorAll('.guest-remove-btn').forEach(btn=>{btn.addEventListener('click',()=>{draftGuests.splice(parseInt(btn.dataset.i),1);renderGuestEditor();renderFamousButtons();});});guestList.querySelectorAll('.guest-emoji-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();openEP(btn,parseInt(btn.dataset.i));});});}
+function renderGuestEditor(){
+  guestEditor.classList.add('visible');guestCount.textContent=draftGuests.length+' 位';guestList.innerHTML='';
+  draftGuests.forEach((g,i)=>{
+    const isF=Object.values(FAMOUS).some(f=>f.name===g.name);
+    const card=document.createElement('div');card.className='guest-card';
+    if(isF)card.style.borderColor='rgba(253,203,110,0.3)';
+    card.innerHTML=`<div class="guest-card-header"><button class="guest-emoji-btn" data-i="${i}">${g.emoji}</button><input type="text" value="${esc(g.name)}" placeholder="姓名" data-field="name" data-i="${i}" />${isF?'<span style="font-size:0.7rem;color:var(--orange);flex-shrink:0">⭐</span>':''}<button class="guest-remove-btn" data-i="${i}">×</button></div><div class="guest-fields"><input type="text" value="${esc(g.title)}" placeholder="身份（含行业）" data-field="title" data-i="${i}" /><input type="text" value="${esc(g.stance)}" placeholder="核心立场" data-field="stance" data-i="${i}" class="wide" /><input type="text" value="${esc(g.experience||'')}" placeholder="行业经验和案例来源" data-field="experience" data-i="${i}" class="wide" /><input type="text" value="${esc(g.catchphrase||'')}" placeholder="口头禅" data-field="catchphrase" data-i="${i}" /></div>`;
+    guestList.appendChild(card);
+  });
+  guestList.querySelectorAll('input[data-field]').forEach(inp=>{inp.addEventListener('input',()=>{const i=parseInt(inp.dataset.i),f=inp.dataset.field;if(draftGuests[i])draftGuests[i][f]=inp.value;});});
+  guestList.querySelectorAll('.guest-remove-btn').forEach(btn=>{btn.addEventListener('click',()=>{draftGuests.splice(parseInt(btn.dataset.i),1);renderGuestEditor();renderFamousButtons();});});
+  guestList.querySelectorAll('.guest-emoji-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();openEP(btn,parseInt(btn.dataset.i));});});
+}
 
 function openEP(a,idx){document.querySelectorAll('.emoji-picker').forEach(p=>p.remove());const pk=document.createElement('div');pk.className='emoji-picker';EMOJIS.forEach(em=>{const b=document.createElement('button');b.textContent=em;b.addEventListener('click',(e)=>{e.stopPropagation();draftGuests[idx].emoji=em;a.textContent=em;pk.remove();});pk.appendChild(b);});a.appendChild(pk);setTimeout(()=>{document.addEventListener('click',function cl(e){if(!pk.contains(e.target)){pk.remove();document.removeEventListener('click',cl);}});},10);}
-guestAddBtn.addEventListener('click',()=>{draftGuests.push({name:'新嘉宾',title:'自定义角色',stance:'独立思考',emoji:EMOJIS[draftGuests.length%EMOJIS.length]});renderGuestEditor();renderFamousButtons();});
-genBtn.addEventListener('click',()=>{const t=topicInput.value.trim();if(!t){topicInput.style.borderColor='var(--red)';return;}generateDraftGuests(t,3,contextInput.value.trim());});
-
-// ===== START =====
+guestAddBtn.addEventListener('click',()=>{draftGuests.push({name:'新嘉宾',title:'自定义角色',stance:'独立思考',emoji:EMOJIS[draftGuests.length%EMOJIS.length],experience:'',catchphrase:'',keywords:[]});renderGuestEditor();renderFamousButtons();});
+genBtn.addEventListener('click',handleGenerateGuests);
+// ===== START MEETING =====
 startBtn.addEventListener('click',startMeeting);
 async function startMeeting(){
   const topic=topicInput.value.trim();if(!topic){topicInput.style.borderColor='var(--red)';return;}
-  if(!guestEditor.classList.contains('visible'))generateDraftGuests(topic,3,contextInput.value.trim());
+  if(!guestEditor.classList.contains('visible'))await handleGenerateGuests();
   if(draftGuests.length<2){alert('至少需要2位嘉宾');return;}
   guestList.querySelectorAll('input[data-field]').forEach(inp=>{const i=parseInt(inp.dataset.i),f=inp.dataset.field;if(draftGuests[i])draftGuests[i][f]=inp.value;});
   const{url,key}=getAPIConfig();const useAI=!!(url&&key);
   $('setup-screen').style.display='none';$('meeting-screen').style.display='flex';topicTag.textContent=topic;
   aiTag.className='ai-tag '+(useAI?'on':'off');aiTag.textContent=useAI?'🤖 AI':'📝 本地';
-  state={topic,context:contextInput.value.trim(),participants:draftGuests.map((g,i)=>({...g,id:i,color:COLORS[i%COLORS.length]})),userMessages:[],messages:[],isRunning:true,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,roundNumber:0,guidingQuestion:'',deepening:false};
+  state={topic,context:contextInput.value.trim(),participants:draftGuests.map((g,i)=>({...g,id:i,color:COLORS[i%COLORS.length]})),userMessages:[],messages:[],isRunning:true,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,speechesSinceUserTurn:0,roundNumber:0,guidingQuestion:'',deepening:false,coveredAngles:[],currentAngle:'',pendingUserAction:null};
   speakCount={};state.participants.forEach(p=>speakCount[p.id]=0);
   setStatus('running','讨论中');updateButtons();renderSeats();
-  await moderatorOpen(topic);
-  startDiscussion();
+  await moderatorOpen(topic);startDiscussion();
 }
 
 // ===== MODERATOR =====
 async function moderatorOpen(topic){
   const concept=topic.replace(/[？?！!。.]/g,'').slice(0,15);
-  if(state.useAI){try{const r=await callLLM([{role:'system',content:'你是圆桌讨论主持人。理性、冷静、洞察力极强。\n议题：「'+topic+'」\n嘉宾：'+state.participants.map(p=>p.name+'（'+p.stance+'）').join('、')+'\n\n请用2-3句话：\n1. 宣布讨论开始，点出核心议题\n2. 提出第一个引导问题：请各位先定义核心概念「'+concept+'」\n要求简洁有力，口语化。'},{role:'user',content:'请开始主持。'}]);addModeratorMsg(r);}catch(e){addModeratorMsg(moderatorOpenLocal(topic));}}
+  if(state.useAI){try{const r=await callLLM([{role:'system',content:`你是圆桌讨论主持人。你敏锐、犀利、善于引导深度讨论。
+
+议题：「${topic}」
+${state.context?'背景：'+state.context:''}
+嘉宾：${state.participants.map(p=>p.name+'（'+p.title+'，立场：'+p.stance+'）').join('、')}
+
+请用2-3句话：
+1. 宣布讨论开始，点出核心议题中对实践者最关键的那个问题
+2. 提出第一个引导性问题——不要泛泛而谈，要针对行业实操层面的具体问题
+
+要求：简洁有力，口语化，有洞察力。不要说"让我们开始"之类的废话。`},{role:'user',content:'请开始主持。'}]);addModeratorMsg(r);}catch(e){addModeratorMsg(moderatorOpenLocal(topic));}}
   else{addModeratorMsg(moderatorOpenLocal(topic));}
-  state.guidingQuestion='我们应当如何定义「'+concept+'」？核心要素是什么？';
+  const firstQ=state.useAI?'请各位从自己的行业经验出发，聊聊你最怎么看这个问题？':'关于「'+concept+'」，各位怎么看？';
+  state.guidingQuestion=firstQ;
   addGuidingQ(state.guidingQuestion);
 }
 
-function moderatorOpenLocal(topic){return '本次圆桌对话正式开始。核心议题为「'+topic+'」。为穷尽其理，我们首先需要对核心概念达成共识——';}
+function moderatorOpenLocal(topic){return '本次圆桌对话正式开始。核心议题为「'+topic+'」。下面请各位嘉宾从自身经验出发发表看法。';}
 
 async function moderatorSynthesize(){
   if(state.summarizing)return;state.summarizing=true;setStatus('synthesizing','主持人综述…');
   const allMsgs=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').map(m=>m.name+'：'+m.text).join('\n');
-  if(state.useAI){try{const r=await callLLM([{role:'system',content:'你是圆桌讨论主持人。理性冷静，洞察力极强。\n\n讨论主题：'+state.topic+'\n当前引导问题：'+state.guidingQuestion+'\n\n讨论记录：\n'+allMsgs+'\n\n请完成以下任务（严格按格式）：\n\n## 综述\n2-3句话总结本轮讨论的核心争议点，指出最大分歧。\n\n## 思维框架\n用简洁的ASCII图表展示核心矛盾结构，格式示例：\n```\n         [核心议题]\n          /        \\\n    [立场A]      [立场B]\n      |              |\n  [论据1]        [论据2]\n      \\\\              /\n       [核心矛盾: XXX]\n```\n\n## 追问\n基于核心矛盾，提出一个更深层的问题（1句话），引导讨论进入更深处。\n\n注意：综述精准不废话；ASCII图表用纯文本符号；追问要切中要害。'},{role:'user',content:'请综述。'}]);addModeratorMsg(r);}catch(e){addModeratorMsg(synthesizeLocal());}}else{addModeratorMsg(synthesizeLocal());}
+  const anglesStr=state.coveredAngles.length>0?'已讨论的角度：'+state.coveredAngles.join('、'):'';
+  if(state.useAI){try{const r=await callLLM([{role:'system',content:`你是圆桌讨论主持人。理性冷静，洞察力极强，善于推动讨论深入。
+
+讨论主题：${state.topic}
+${state.context?'背景：'+state.context:''}
+当前引导问题：${state.guidingQuestion}
+${anglesStr}
+
+讨论记录：
+${allMsgs}
+
+请完成以下任务（严格按格式）：
+
+## 综述
+2-3句话总结本轮讨论的核心进展。**不要重复立场，要提炼出碰撞出的新观点和具体案例**。
+
+## 角度追踪
+列出目前已经讨论过的角度（用顿号分隔），每个角度2-4个字。格式：角度1、角度2、角度3
+
+## 未讨论
+列出1-2个还没涉及但对这个议题至关重要的新角度。
+
+## 追问
+基于核心矛盾和未讨论角度，提出一个更深层的具体问题（1句话），引导讨论进入新领域。**不要重复已问过的问题**。
+
+注意：综述要精准提炼新观点，不要复述立场；追问要切中要害且指向新角度。`},{role:'user',content:'请综述。'}]);
+      addModeratorMsg(r);
+      // parse angles from response
+      const angleMatch=r.match(/角度追踪[：:]\s*\n?(.+)/);
+      if(angleMatch){const newAngles=angleMatch[1].split(/[、,，]/).map(a=>a.trim()).filter(a=>a&&a.length<=8);
+        state.coveredAngles=[...new Set([...state.coveredAngles,...newAngles])];
+      }
+      renderAnglesTracker();
+    }catch(e){addModeratorMsg(synthesizeLocal());}
+  }else{addModeratorMsg(synthesizeLocal());}
   state.speechesSinceSynthesis=0;state.roundNumber++;state.summarizing=false;
   if(state.isRunning&&!state.isEnded)setStatus('running','讨论中');updateButtons();
 }
 
 function synthesizeLocal(){
   const ps=state.participants;const a=ps[0]||{name:'A',stance:'观点A'};const b=ps[1]||{name:'B',stance:'观点B'};
-  return '## 综述\n核心争议在于各方对本质的理解存在根本分歧。\n\n## 思维框架\n```\n         ['+state.topic.slice(0,10)+']\n          /        \\\n    ['+a.name+']      ['+b.name+']\n      |              |\n  ['+a.stance.slice(0,6)+']  ['+b.stance.slice(0,6)+']\n      \\\\              /\n       [核心矛盾]\n```\n\n## 追问\n这个矛盾背后，是否有一个更基本的前提未被触及？';
+  return `## 综述\n核心争议在于各方对本质的理解存在根本分歧。\n\n## 追问\n这个矛盾背后，是否有一个更基本的前提未被触及？`;
 }
 
 function addGuidingQ(q){const d=document.createElement('div');d.className='guiding-q';d.innerHTML='🎯 主持人追问：'+escH(q);chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;}
 
+function renderAnglesTracker(){
+  const existing=chatMessages.querySelector('.angles-tracker');
+  if(existing)existing.remove();
+  if(state.coveredAngles.length===0)return;
+  const d=document.createElement('div');d.className='angles-tracker';
+  d.innerHTML='<div class="angles-tracker-title">📍 已讨论角度</div>'+state.coveredAngles.map(a=>'<span class="angle-tag explored">'+escH(a)+'</span>').join('');
+  // insert before last message
+  if(chatMessages.children.length>2){
+    const ref=chatMessages.children[chatMessages.children.length-1];
+    chatMessages.insertBefore(d,ref);
+  }else{chatMessages.appendChild(d);}
+  chatMessages.scrollTop=chatMessages.scrollHeight;
+}
+
+// ===== USER TURN BANNER =====
+function showUserTurnBanner(){
+  const d=document.createElement('div');d.className='user-turn-banner';
+  d.innerHTML='💡 主持人：请你说说你的看法——';
+  chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;
+  // highlight user seat
+  const us=document.getElementById('seat-user');
+  if(us){us.classList.add('speaking');setTimeout(()=>us.classList.remove('speaking'),3000);}
+}
 // ===== DISCUSSION ENGINE =====
 let discRun=false;
 
-function pickNextSpeaker(excludeId){const ps=state.participants;if(ps.length<=1)return ps[0];const last=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你').slice(-1)[0]||null;const weights=ps.map(p=>{if(p.id===excludeId)return 0;let w=1;const cnt=speakCount[p.id]||0;const mx=Math.max(1,...Object.values(speakCount));w+=Math.max(0,(mx-cnt))*2;if(last&&last.name!==p.name)w+=1+Math.random()*3;w+=Math.random()*2;return w;});const total=weights.reduce((a,b)=>a+b,0);if(total===0)return ps[Math.floor(Math.random()*ps.length)];let r=Math.random()*total;for(let i=0;i<weights.length;i++){r-=weights[i];if(r<=0)return ps[i];}return ps[ps.length-1];}
+function pickNextSpeaker(excludeId){
+  const ps=state.participants;if(ps.length<=1)return ps[0];
+  const last=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你'&&!m.isHidden).slice(-1)[0]||null;
+  const lastUser=state.userMessages.length>0;
+  const weights=ps.map(p=>{
+    if(p.id===excludeId)return 0;
+    let w=1;
+    const cnt=speakCount[p.id]||0;
+    const mx=Math.max(1,...Object.values(speakCount));
+    // favor speakers who haven't spoken much
+    w+=Math.max(0,(mx-cnt))*2.5;
+    // favor responding to last speaker
+    if(last&&last.name!==p.name)w+=1+Math.random()*3;
+    // if user just spoke, boost everyone (they should all respond)
+    if(lastUser)w+=3+Math.random()*2;
+    w+=Math.random()*1.5;
+    return w;
+  });
+  const total=weights.reduce((a,b)=>a+b,0);
+  if(total===0)return ps[Math.floor(Math.random()*ps.length)];
+  let r=Math.random()*total;
+  for(let i=0;i<weights.length;i++){r-=weights[i];if(r<=0)return ps[i];}
+  return ps[ps.length-1];
+}
 
 async function startDiscussion(){if(discRun)return;discRun=true;const first=state.participants[Math.floor(Math.random()*state.participants.length)];await doSpeak(first.id);discussionLoop();}
 
 async function discussionLoop(){
   while(state.isRunning&&!state.isEnded){
     if(state.isPaused){await waitP();if(!state.isRunning||state.isEnded)break;}
+    // moderator synthesis
     if(state.speechesSinceSynthesis>=SYNTH_EVERY&&!state.deepening){await moderatorSynthesize();if(!state.isRunning||state.isEnded)break;}
-    const gap=1200+Math.random()*1500;await sleep(gap);
+    // user turn prompt
+    if(state.speechesSinceUserTurn>=USER_TURN_EVERY&&state.userMessages.length===0){
+      showUserTurnBanner();
+      state.speechesSinceUserTurn=0;
+      // brief pause for user
+      await sleep(5000);
+      if(!state.isRunning||state.isEnded)break;
+    }
+    const gap=1500+Math.random()*2000;await sleep(gap);
     if(!state.isRunning||state.isEnded)break;
     if(state.isPaused)continue;
     if(state.speakingLock){await sleep(300);continue;}
@@ -328,30 +592,101 @@ async function doSpeak(pid){
   if(state.speakingLock)return;state.speakingLock=true;
   const p=state.participants[pid];if(!p){state.speakingLock=false;return;}
   state.currentSpeaker=pid;hlSeat(pid,'thinking');
-  let msg,action='陈述',tldr='';
-  try{if(state.useAI){const r=await genSpeechAI(p);msg=r.msg;action=r.action;tldr=r.tldr;}else{const r=genSpeechLocal(p);msg=r.msg;action=r.action;tldr=r.tldr;}}
-  catch(e){const r=genSpeechLocal(p);msg=r.msg;action=r.action;tldr=r.tldr;if(state.useAI)addSys('⚠️ AI请求失败: '+e.message.slice(0,60));}
+  let msg,action='陈述',tldr='',example='';
+  try{if(state.useAI){const r=await genSpeechAI(p);msg=r.msg;action=r.action;tldr=r.tldr;example=r.example||'';}else{const r=genSpeechLocal(p);msg=r.msg;action=r.action;tldr=r.tldr;example='';}}
+  catch(e){const r=genSpeechLocal(p);msg=r.msg;action=r.action;tldr=r.tldr;example='';if(state.useAI)addSys('⚠️ AI请求失败: '+e.message.slice(0,60));}
   if(!state.isRunning||state.isEnded||state.skipRequested){hlSeat(pid,null);state.currentSpeaker=null;state.skipRequested=false;state.speakingLock=false;return;}
-  hlSeat(pid,'speaking');speakCount[pid]=(speakCount[pid]||0)+1;state.speechesSinceSynthesis++;
-  addGuestMsg(p,action,msg,tldr);updBubble(pid,msg);
+  hlSeat(pid,'speaking');speakCount[pid]=(speakCount[pid]||0)+1;state.speechesSinceSynthesis++;state.speechesSinceUserTurn++;
+  addGuestMsg(p,action,msg,tldr,example);updBubble(pid,msg);
   await sleep(Math.min(msg.length*50,4000,1500));
   hlSeat(pid,null);state.currentSpeaker=null;state.speakingLock=false;
 }
 
-// ===== AI SPEECH =====
+// ===== AI SPEECH (CORE IMPROVEMENT) =====
 async function genSpeechAI(p){
-  const hist=state.messages.filter(m=>m.name!=='系统').slice(-16).map(m=>({role:m.name==='你'?'user':'assistant',content:m.name+'：'+m.text}));
+  const recentMsgs=state.messages.filter(m=>m.name!=='系统'&&!m.isHidden).slice(-14);
+  const hist=recentMsgs.map(m=>({role:m.name==='你'?'user':'assistant',content:m.name+'：'+m.text+(m.example?'\n案例：'+m.example:'')}));
+  const lastSpeaker=recentMsgs.filter(m=>m.name!=='主持'&&m.name!=='你').slice(-1)[0]||null;
   const lastUserMsg=state.userMessages.length>0?state.userMessages[state.userMessages.length-1]:null;
-  const others=state.participants.filter(x=>x.id!==p.id).map(x=>x.name+'（立场：'+x.stance+'）').join('\n');
-  const lastSpeaker=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你').slice(-1)[0]||null;
-  const sys='你正在参加一场以「求真」为目标的圆桌深度对话。\n\n主题：'+state.topic+'\n'+(state.context?'背景：'+state.context+'\n':'')+'当前主持人引导的问题：'+(state.guidingQuestion||'自由讨论')+'\n\n你的角色：'+p.name+'，'+(p.title||'嘉宾')+'\n你的立场：'+p.stance+'\n你的性格：'+p.personality+'\n'+(p.catchphrase?'口头禅：'+p.catchphrase+'\n':'')+'\n其他参会者：\n'+others+'\n\n'+(lastSpeaker&&lastSpeaker.name!==p.name?'刚刚 '+lastSpeaker.name+' 说了："'+lastSpeaker.text.slice(0,80)+'"':'')+'\n\n⚠️ 核心规则：\n- 你必须有独立的观点！立场"'+p.stance+'"是底线，坚定捍卫\n- 如果前人观点与你不同，必须反驳或质疑\n- 选择一个行动标签：【反驳】【质疑】【补充】【支持】【追问】【陈述】\n- 口语化，2-4句话，简洁有力\n- 体现性格：'+p.personality+'\n\n严格按以下格式输出：\n【行动标签】发言内容\n\n简言之：一句话核心论点';
+  const others=state.participants.filter(x=>x.id!==p.id).map(x=>`${x.name}（${x.title}，立场：${x.stance}）`).join('\n');
+  const mySpokenCount=speakCount[p.id]||0;
+  const recentMyMsgs=state.messages.filter(m=>m.name===p.name).slice(-2).map(m=>m.text).join(' || ');
+  const pendingAction=state.pendingUserAction;
+  state.pendingUserAction=null;
+
+  let actionInstruction='';
+  if(pendingAction==='challenge')actionInstruction='\n⚠️ 用户刚刚对之前的观点提出了质疑，你需要正面回应这个质疑。';
+  else if(pendingAction==='agree')actionInstruction='\n⚠️ 用户表示认同某个观点，你可以在此基础上进一步延伸。';
+  else if(pendingAction==='example')actionInstruction='\n⚠️ 用户要求举更多具体案例，请务必用你自己或你身边的真实案例来论证。';
+  else if(pendingAction==='redirect')actionInstruction='\n⚠️ 用户希望换个角度讨论，请从一个全新的、之前未涉及的角度切入。';
+  else if(pendingAction==='ask')actionInstruction='\n⚠️ 用户提出了一个追问，请针对性地回答。';
+
+  let userInstruction='';
+  if(lastUserMsg)userInstruction=`\n\n⚠️ 主持人/用户（会议参与者，非旁观者）刚刚说了："${lastUserMsg}"\n你必须直接回应用户的观点或问题，把用户当作平等的讨论参与者而非外人。`;
+
+  const sys=`你正在参加一场以「求真」为目标的圆桌深度对话。你不是在空谈理论，你是一个有真实行业经验的从业者。
+
+🧑 你的角色：${p.name}，${p.title||'嘉宾'}
+📢 你的立场：${p.stance}
+🎭 你的性格：${p.personality}
+${p.experience?'💼 你的行业经验：'+p.experience:''}
+${p.catchphrase?'🗣️ 口头禅：'+p.catchphrase:''}
+
+📋 讨论主题：${state.topic}
+${state.context?'📌 背景：'+state.context:''}
+🎯 当前引导问题：${state.guidingQuestion||'自由讨论'}
+📍 已讨论角度：${state.coveredAngles.length>0?state.coveredAngles.join('、'):'刚开始讨论'}
+
+👥 其他参会者：
+${others}
+
+${lastSpeaker&&lastSpeaker.name!==p.name?'💬 刚刚 '+lastSpeaker.name+' 说了："'+lastSpeaker.text.slice(0,100)+'"':''}
+
+${userInstruction}
+${actionInstruction}
+
+⚠️ 核心规则（极其重要）：
+1. **必须有具体案例**：你必须用你自己的经营经历/行业观察/具体案例来论证观点，不要空谈。"我在做XX的时候发现..." "我观察过一个案例..."
+2. **禁止车轱辘话**：你已经说了${mySpokenCount}次。你之前说过的要点：【${recentMyMsgs||'无'}】。绝对不要重复自己已经说过的观点！必须推进到新的论据或新角度。
+3. **必须回应前人**：如果前面有人发言，你必须针对TA的具体论点或案例进行回应——反驳、补充、或用你的案例来佐证/反驳。不要自说自话。
+4. **立场是底线但角度要新**：坚持你的立场，但每次发言必须从新的角度或新的论据切入。
+5. **选择行动标签**：【反驳】【质疑】【补充】【支持】【追问】【案例】【陈述】
+   - 如果你在讲自己的具体经历/案例，用【案例】
+   - 如果你直接反对前人的某个具体论点，用【反驳】
+   - 如果你有新案例来补充论据，用【补充】
+
+6. 口语化，2-5句话，简洁有力。体现你的性格。
+7. 如果是第1次发言，先介绍自己的行业背景，然后给出核心观点+案例。
+
+严格按以下格式输出：
+【行动标签】发言内容
+
+📎 案例：一句话概括你引用的具体案例（如果有案例的话）
+
+💡 简言之：一句话核心论点`;
 
   const messages=[{role:'system',content:sys},...hist];
-  if(lastUserMsg)messages.push({role:'user',content:'主持人/听众提问：'+lastUserMsg+'\n请从你的立场回应。'});
+  if(lastUserMsg)messages.push({role:'user',content:'用户（会议参与者）：'+lastUserMsg});
   const raw=await callLLM(messages);return parseAIResponse(raw);
 }
 
-function parseAIResponse(raw){let action='陈述',msg=raw,tldr='';const am=raw.match(/[【\[]?(反驳|质疑|补充|支持|追问|陈述)[】\]]?/);if(am){action=am[1];msg=raw.replace(/[【\[]?(反驳|质疑|补充|支持|追问|陈述)[】\]]?\s*/,'');}const tm=msg.match(/简言之[：:]\s*(.+)/);if(tm){tldr=tm[1].trim();msg=msg.replace(/简言之[：:]\s*.+/,'');}if(!tldr)tldr=msg.replace(/\n/g,' ').slice(0,35)+(msg.length>35?'…':'');return{msg:msg.trim(),action,tldr};}
+function parseAIResponse(raw){
+  let action='陈述',msg=raw,example='',tldr='';
+  const am=raw.match(/[【\[]?(反驳|质疑|补充|支持|追问|案例|陈述)[】\]]?/);
+  if(am){action=am[1];msg=raw.replace(/[【\[]?(反驳|质疑|补充|支持|追问|案例|陈述)[】\]]?\s*/,'');}
+  const em=msg.match(/[📎💡][案例：:]*\s*(.+)/);
+  if(em){
+    const full=em[0];
+    if(full.startsWith('📎')||full.includes('案例')){example=em[1].trim();}
+    msg=msg.replace(full,'');
+  }
+  const exMatch=msg.match(/📎\s*案例[：:]\s*(.+)/i);
+  if(exMatch&&!example){example=exMatch[1].trim();msg=msg.replace(exMatch[0],'');}
+  const tm=msg.match(/💡\s*简言之[：:]\s*(.+)/)||msg.match(/简言之[：:]\s*(.+)/);
+  if(tm){tldr=tm[1].trim();msg=msg.replace(tm[0],'');}
+  if(!tldr)tldr=msg.replace(/\n/g,' ').slice(0,35)+(msg.length>35?'…':'');
+  return{msg:msg.trim(),action,example:example.trim(),tldr};
+}
 
 // ===== LOCAL FALLBACK =====
 function pick(a){return a[Math.floor(Math.random()*a.length)];}
@@ -359,29 +694,74 @@ function pick(a){return a[Math.floor(Math.random()*a.length)];}
 function genSpeechLocal(p){
   const h=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你');
   const last=h.length>0?h[h.length-1]:null;const u=state.userMessages;
-  const tw=(p.keywords&&p.keywords.length)?pick(p.keywords):'这件事';
-  const uc=p.catchphrase&&Math.random()<0.2;const isFirst=(speakCount[p.id]||0)<1;
-  let action='陈述',msg='',tldr=p.stance.slice(0,30);
-  if(u.length>0&&Math.random()>0.3){action=pick(['反驳','追问','补充']);msg=pick(['回应主持人。'+p.stance+(uc?' '+p.catchphrase:''),'从我的角度，'+p.stance+'。关于'+tw+'，这才是核心。','我的立场不变——'+p.stance+'。']);}
-  else if(isFirst||!last){action='陈述';msg=pick(['我的立场很明确——'+p.stance+(uc?' '+p.catchphrase:''),'关于"'+state.topic+'"，'+p.stance+'。',p.stance+'。这是我的底线。']);}
-  else if(last&&last.name!==p.name){if(Math.random()>0.3){action=pick(['反驳','质疑']);msg=pick(['我得反驳'+last.name+'。'+p.stance+'。'+tw+'的本质不是那样。',last.name+'的观点我不能认同。'+p.stance+'——这才是关键。','恰恰相反！'+p.st+'。'+(uc?p.catchphrase:''),'等等，'+last.name+'，从'+tw+'来看，'+p.stance+'。']);}else{action=pick(['补充','支持']);msg=pick([last.name+'说得有道理，但我要补充——'+tw+'层面，'+p.stance+'。','顺着'+last.name+'的思路推进一步。'+p.stance+'。']);}}
-  else{action='陈述';msg='回到'+tw+'——'+p.stance+(uc?' '+p.catchphrase:'');}
-  return{msg,action,tldr};
+  const isFirst=(speakCount[p.id]||0)<1;
+  let action='陈述',msg='',tldr=p.stance.slice(0,30),example='';
+  if(u.length>0&&Math.random()>0.3){
+    action=pick(['反驳','追问','补充','案例']);
+    msg='关于用户提到的这点，'+p.stance+'。'+(p.experience?'比如我在'+p.experience.split('，')[0].slice(0,20)+'的时候...':'');
+    example=p.experience?p.experience.split('，')[0].slice(0,30):'';
+  }else if(isFirst||!last){
+    action='陈述';
+    msg='我的立场很明确——'+p.stance+'。'+(p.experience?'我在'+p.experience.split('，')[0].slice(0,30)+'深有体会。':'');
+    example=p.experience?p.experience.split('，')[0].slice(0,30):'';
+  }else if(last&&last.name!==p.name){
+    if(Math.random()>0.3){action=pick(['反驳','质疑','案例']);
+      msg='我得说说'+last.name+'的观点。'+p.stance+'。'+(p.experience?'我自己的经验是'+p.experience.split('，')[0].slice(0,25):'');
+      example=p.experience?p.experience.split('，')[0].slice(0,30):'';
+    }else{action=pick(['补充','支持']);
+      msg='顺着一提，'+p.stance+'。';
+    }
+  }else{action='陈述';msg=p.stance+(p.catchphrase?' '+p.catchphrase:'');}
+  return{msg,action,example,tldr};
 }
-
-// ===== USER INPUT =====
-function handleUserInput(){
-  const text=userInput.value.trim();if(!text||state.isEnded)return;
+// ===== USER INPUT (IMPROVED) =====
+function handleUserInput(actionType){
+  const text=userInput.value.trim();
+  if(!text&&!actionType)return;
+  if(state.isEnded)return;
+  // quick action without text
+  if(actionType&&!text){
+    const actionTexts={challenge:'我对刚才的观点有不同看法——',agree:'我认同这个方向，但我想补充——',example:'能不能举一个更具体的案例？',redirect:'我觉得我们换个角度看这个问题——',ask:'我想追问一个细节——'};
+    state.userMessages.push(actionTexts[actionType]||text);
+    state.pendingUserAction=actionType;
+    addUserMsg(actionTexts[actionType]||'💬 互动');
+    userInput.value='';
+    triggerUserResponse();return;
+  }
   if(text==='可'||text==='继续'||text==='推进'){userInput.value='';state.isPaused=false;setStatus('running','讨论中');updateButtons();return;}
   if(text==='止'||text==='暂停'||text==='停'){userInput.value='';state.isPaused=true;setStatus('paused','已暂停');updateButtons();return;}
   if(text==='深入'){userInput.value='';deepenBtn.click();return;}
-  state.userMessages.push(text);addUserMsg(text);
+  state.userMessages.push(text);
+  if(actionType)state.pendingUserAction=actionType;
+  addUserMsg(text);
   userInput.value='';userInput.style.height='auto';
-  state.skipRequested=true;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}
-  setTimeout(async()=>{if(!state.isRunning||state.isEnded)return;const r=pickNextSpeaker(null);await doSpeak(r.id);},600);
+  triggerUserResponse();
 }
-sendBtn.addEventListener('click',handleUserInput);
-userInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleUserInput();}});
+
+function triggerUserResponse(){
+  state.speechesSinceUserTurn=0;
+  state.skipRequested=true;
+  if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}
+  // Multiple guests respond to user
+  const respondCount=Math.min(2,state.participants.length);
+  let delay=600;
+  for(let i=0;i<respondCount;i++){
+    setTimeout(async()=>{
+      if(!state.isRunning||state.isEnded)return;
+      const r=pickNextSpeaker(null);
+      await doSpeak(r.id);
+    },delay);
+    delay+=1500;
+  }
+}
+
+// quick action buttons
+document.querySelectorAll('.quick-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{if(state.isEnded)return;handleUserInput(btn.dataset.action);});
+});
+
+sendBtn.addEventListener('click',()=>handleUserInput(null));
+userInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleUserInput(null);}});
 userInput.addEventListener('input',()=>{userInput.style.height='auto';userInput.style.height=Math.min(userInput.scrollHeight,120)+'px';});
 
 // ===== CONTROLS =====
@@ -401,10 +781,23 @@ summarizeBtn.addEventListener('click',async()=>{
 endBtn.addEventListener('click',()=>{if(state.isEnded)return;state.isRunning=false;state.isPaused=false;state.isEnded=true;discRun=false;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}addSys('⏹ 研讨已结束 — 点击「📋 总结」生成知识网络');setStatus('ended','已结束');updateButtons();});
 backBtn.addEventListener('click',()=>{state.isRunning=false;state.isPaused=false;state.isEnded=false;discRun=false;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}$('meeting-screen').style.display='none';$('setup-screen').style.display='flex';chatMessages.innerHTML='';msgCount.textContent='0 条发言';draftGuests=state.participants.map(p=>({...p}));renderGuestEditor();renderFamousButtons();});
 
-async function genFinalSummary(){const msgs=state.messages.filter(m=>m.name!=='系统').map(m=>m.name+'：'+m.text).join('\n');return await callLLM([{role:'system',content:'生成最终研讨总结，包含：\n1. 核心议题回顾\n2. 各方立场与关键论据\n3. 最大分歧点\n4. 可能的共识\n5. 未解决的问题\n6. 知识网络可视化（ASCII图）\n\n简洁有力，要点格式。'},{role:'user',content:msgs}]);}
+async function genFinalSummary(){
+  const msgs=state.messages.filter(m=>m.name!=='系统').map(m=>m.name+'：'+m.text+(m.example?'\n[案例：'+m.example+']':'')).join('\n');
+  const guests=state.participants.map(p=>`${p.name}（${p.title}）：${p.stance}\n  经验：${p.experience||'无'}`).join('\n');
+  return await callLLM([{role:'system',content:`生成最终研讨总结，要求：
+
+1. 📌 核心议题回顾（1句话）
+2. 👤 各方立场与关键论据（每个嘉宾1-2行，必须包含TA提到的具体案例）
+3. 💥 最大分歧点（哪些案例冲突了？）
+4. 🤝 可能的共识（哪些观点意外地趋同了？）
+5. ❓ 未解决的关键问题
+6. 🗺️ 知识网络可视化（ASCII图，展示核心矛盾和案例支撑）
+
+简洁有力，要点格式。务必体现具体案例！`},{role:'user',content:'嘉宾背景：\n'+guests+'\n\n讨论记录：\n'+msgs}]);
+}
 function genFinalSummaryLocal(){const ps=state.participants.map(p=>'• '+p.name+'（'+p.stance+'）').join('\n');const cnt=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length;return '📌 主题：'+state.topic+'\n💬 共 '+cnt+' 条发言\n\n🎯 各方立场：\n'+ps;}
 
-// ===== HELPERS =====
+// ===== RENDERING =====
 function waitP(){return new Promise(r=>{const c=setInterval(()=>{if(!state.isPaused||!state.isRunning||state.isEnded){clearInterval(c);r();}},200);});}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function setStatus(t,x){statusBadge.className='status-badge '+t;statusBadge.innerHTML='<span class="status-dot"></span>'+x;}
@@ -415,7 +808,7 @@ function renderSeats(){
   const ma=-Math.PI/2,mx=cx+radius*Math.cos(ma)-35,my=cy+radius*Math.sin(ma)-35;
   const ms=document.createElement('div');ms.className='seat moderator-seat';ms.id='seat-mod';ms.style.left=mx+'px';ms.style.top=my+'px';
   ms.innerHTML='<div class="avatar" style="background:rgba(253,203,110,0.15);color:var(--moderator)">⚖️</div><span class="seat-name">主持</span>';roundtable.appendChild(ms);
-  state.participants.forEach((p,i)=>{const a=(2*Math.PI*(i+1.5)/total)-Math.PI/2,x=cx+radius*Math.cos(a)-35,y=cy+radius*Math.sin(a)-35;const s=document.createElement('div');s.className='seat';s.id='seat-'+i;s.style.left=x+'px';s.style.top=y+'px';s.innerHTML='<div class="avatar" style="background:'+p.color+'22;color:'+p.color+'">'+p.emoji+'</div><span class="seat-name">'+p.name+'</span><div class="speech-bubble" id="bubble-'+i+'"></div>';s.title=p.name+' - '+(p.title||'')+'\n'+p.stance;roundtable.appendChild(s);});
+  state.participants.forEach((p,i)=>{const a=(2*Math.PI*(i+1.5)/total)-Math.PI/2,x=cx+radius*Math.cos(a)-35,y=cy+radius*Math.sin(a)-35;const s=document.createElement('div');s.className='seat';s.id='seat-'+i;s.style.left=x+'px';s.style.top=y+'px';s.innerHTML='<div class="avatar" style="background:'+p.color+'22;color:'+p.color+'">'+p.emoji+'</div><span class="seat-name">'+p.name+'</span><div class="speech-bubble" id="bubble-'+i+'"></div>';s.title=p.name+' - '+(p.title||'')+'\n'+p.stance+(p.experience?'\n经验：'+p.experience:'');roundtable.appendChild(s);});
   const ua=0,ux=cx+radius*Math.cos(ua)-35,uy=cy+radius*Math.sin(ua)-35;
   const us=document.createElement('div');us.className='seat user-seat';us.id='seat-user';us.style.left=ux+'px';us.style.top=uy+'px';
   us.innerHTML='<div class="avatar" style="background:rgba(0,206,201,0.15);color:var(--cyan)">🎤</div><span class="seat-name">你</span>';roundtable.appendChild(us);
@@ -425,16 +818,25 @@ function hlSeat(id,cls){const s=document.getElementById('seat-'+id);if(!s)return
 function updBubble(id,text){const b=document.getElementById('bubble-'+id);if(b)b.textContent=text.length>50?text.slice(0,50)+'…':text;}
 function escH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
 
-function addUserMsg(text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});state.messages.push({name:'你',text,time:t});const d=document.createElement('div');d.className='msg user-msg';d.innerHTML='<div class="msg-avatar" style="background:rgba(0,206,201,0.15);color:var(--cyan)">🎤</div><div class="msg-body"><div class="msg-header"><div class="msg-name" style="color:var(--cyan)">你</div></div><div class="msg-text">'+escH(text)+'</div><div class="msg-time">'+t+'</div></div>';chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;msgCount.textContent=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length+' 条';}
-
-function addGuestMsg(p,action,text,tldr){
+function addUserMsg(text){
   const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
-  state.messages.push({name:p.name,text,time:t,action});
+  state.messages.push({name:'你',text,time:t});
+  const d=document.createElement('div');d.className='msg user-msg user-prompt-msg';
+  d.innerHTML='<div class="msg-avatar" style="background:rgba(0,206,201,0.15);color:var(--cyan)">🎤</div><div class="msg-body"><div class="msg-header"><div class="msg-name" style="color:var(--cyan)">你</div></div><div class="msg-text">'+escH(text)+'</div><div class="msg-time">'+t+'</div></div>';
+  chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;
+  msgCount.textContent=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length+' 条';
+}
+
+function addGuestMsg(p,action,text,tldr,example){
+  const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+  state.messages.push({name:p.name,text,time:t,action,example:example||''});
   const d=document.createElement('div');d.className='msg';
-  let hdr='<div class="msg-name" style="color:'+p.color+'">'+p.name+'·'+(p.title||'')+'</div>';
+  let hdr='<div class="msg-name" style="color:'+p.color+'">'+p.name+'</div>';
+  if(p.title)hdr+='<span class="msg-role">'+escH(p.title)+'</span>';
   if(action)hdr+='<span class="msg-action a-'+action+'">'+action+'</span>';
   let body='<div class="msg-text">'+escH(text)+'</div>';
-  if(tldr)body+='<div class="msg-tldr">💬 简言之：'+escH(tldr)+'</div>';
+  if(example)body+='<div class="msg-example">📎 案例：'+escH(example)+'</div>';
+  if(tldr)body+='<div class="msg-tldr">💡 简言之：'+escH(tldr)+'</div>';
   body+='<div class="msg-time">'+t+'</div>';
   d.innerHTML='<div class="msg-avatar" style="background:'+p.color+'22;color:'+p.color+'">'+p.emoji+'</div><div class="msg-body"><div class="msg-header">'+hdr+'</div>'+body+'</div>';
   chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;
@@ -458,7 +860,15 @@ function addModeratorMsg(text){
 function addSys(text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});const d=document.createElement('div');d.className='msg system-msg';d.innerHTML='<div class="msg-avatar">⚙️</div><div class="msg-body"><div class="msg-text">'+text+'</div><div class="msg-time">'+t+'</div></div>';chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;}
 
 // ===== AUTO-TEST =====
-setTimeout(async()=>{try{const r=await fetchWithTimeout(DEFAULT_API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+DEFAULT_API_KEY},body:JSON.stringify({model:DEFAULT_API_MODEL,messages:[{role:'user',content:'hi'}],max_tokens:5})},API_TIMEOUT);apiStatus.textContent=r.ok?'✅ 内置API可用':'⚠️ API异常，请换Key';apiStatus.className=r.ok?'api-status ok':'api-status err';}catch(e){apiStatus.textContent='⚠️ 网络无法连接';apiStatus.className='api-status err';}},1000);
+// API preset buttons
+const PRESETS={deepseek:{url:'https://api.deepseek.com/v1/chat/completions',model:'deepseek-chat',hint:'填入你的 DeepSeek API Key'},openai:{url:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',hint:'填入你的 OpenAI API Key'}};
+$('preset-deepseek').addEventListener('click',()=>{apiUrl.value=PRESETS.deepseek.url;apiModel.value=PRESETS.deepseek.model;apiKey.placeholder=PRESETS.deepseek.hint;apiKey.focus();});
+$('preset-openai').addEventListener('click',()=>{apiUrl.value=PRESETS.openai.url;apiModel.value=PRESETS.openai.model;apiKey.placeholder=PRESETS.openai.hint;apiKey.focus();});
+$('preset-custom').addEventListener('click',()=>{apiUrl.value='';apiKey.value='';apiModel.value='';apiUrl.placeholder='输入你的 API 地址';apiKey.placeholder='输入你的 API Key';apiModel.placeholder='输入模型名';apiUrl.focus();});
+// Auto-detect local storage
+try{const saved=JSON.parse(localStorage.getItem('roundtable_api')||'{}');if(saved.url)apiUrl.value=saved.url;if(saved.key)apiKey.value=saved.key;if(saved.model)apiModel.value=saved.model;}catch(e){}
+function saveAPIConfig(){try{localStorage.setItem('roundtable_api',JSON.stringify({url:apiUrl.value,key:apiKey.value,model:apiModel.value}));}catch(e){}}
+[apiUrl,apiKey,apiModel].forEach(el=>el.addEventListener('change',saveAPIConfig));
 </script>
 </body>
 </html>
