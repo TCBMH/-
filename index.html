@@ -11,58 +11,45 @@
     --bg: #0f1117; --surface: #1a1d27; --surface2: #242836; --border: #2e3347;
     --text: #e4e6f0; --text2: #8b8fa8; --accent: #6c5ce7; --accent2: #a29bfe;
     --green: #00b894; --orange: #fdcb6e; --red: #e17055; --cyan: #00cec9;
+    --moderator: #fdcb6e;
   }
   body { font-family:'Noto Sans SC',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
-
   #setup-screen { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:2rem; animation:fadeIn 0.6s ease; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
   #setup-screen h1 { font-size:2.4rem; font-weight:700; margin-bottom:0.5rem; background:linear-gradient(135deg,var(--accent2),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
   #setup-screen .subtitle { color:var(--text2); margin-bottom:2.5rem; font-size:1.05rem; }
-
   .setup-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:2rem; width:100%; max-width:640px; }
   .setup-card label { display:block; font-weight:500; margin-bottom:0.5rem; color:var(--text2); font-size:0.9rem; }
   .setup-card input, .setup-card textarea, .setup-card select { width:100%; padding:0.75rem 1rem; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:inherit; font-size:1rem; margin-bottom:1.2rem; outline:none; transition:border-color 0.2s; }
   .setup-card input:focus, .setup-card textarea:focus { border-color:var(--accent); }
   .setup-card textarea { resize:vertical; min-height:80px; }
   .setup-card input::placeholder, .setup-card textarea::placeholder { color:var(--text2); opacity:0.6; }
-
   .presets { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.2rem; }
   .preset-btn { padding:0.4rem 0.9rem; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; font-size:0.85rem; transition:all 0.2s; }
   .preset-btn:hover { border-color:var(--accent); color:var(--accent2); background:rgba(108,92,231,0.1); }
-
-  .section-divider { font-size:0.8rem; color:var(--text2); margin:1rem 0 0.6rem; padding-top:0.8rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.5rem; }
-
+  .section-divider { font-size:0.85rem; color:var(--text2); margin:1rem 0 0.6rem; padding-top:0.8rem; border-top:1px solid var(--border); display:flex; align-items:center; gap:0.5rem; }
   .btn-row { display:flex; gap:0.6rem; margin-bottom:0.5rem; }
   .gen-btn { flex:1; padding:0.7rem; border-radius:10px; border:1px solid var(--accent); background:rgba(108,92,231,0.1); color:var(--accent2); font-size:0.95rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
   .gen-btn:hover { background:rgba(108,92,231,0.2); }
-
   .start-btn { width:100%; padding:0.9rem; border-radius:12px; border:none; background:linear-gradient(135deg,var(--accent),#4a3dd6); color:#fff; font-size:1.1rem; font-weight:600; cursor:pointer; transition:transform 0.15s,box-shadow 0.15s; }
   .start-btn:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(108,92,231,0.4); }
-
-  /* API config */
-  .api-toggle { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.8rem; cursor:pointer; }
-  .api-toggle input[type=checkbox] { width:18px; height:18px; accent-color:var(--accent); margin-bottom:0; }
-  .api-toggle span { font-size:0.95rem; color:var(--text); }
   .api-config { display:block; margin-bottom:1rem; padding:1rem; background:var(--surface2); border-radius:10px; border:1px solid var(--border); }
-  .api-config.visible { display:block; }
   .api-config input { margin-bottom:0.8rem; }
   .api-config .hint { font-size:0.75rem; color:var(--text2); margin-bottom:0.8rem; line-height:1.5; }
   .api-status { font-size:0.8rem; margin-top:0.5rem; }
   .api-status.ok { color:var(--green); }
   .api-status.err { color:var(--red); }
   .api-status.testing { color:var(--orange); }
-
   .famous-row { display:flex; flex-wrap:wrap; gap:0.4rem; margin-bottom:0.8rem; }
   .famous-btn { padding:0.3rem 0.7rem; border-radius:16px; border:1px solid var(--border); background:var(--surface2); color:var(--text); cursor:pointer; font-size:0.82rem; transition:all 0.2s; display:flex; align-items:center; gap:0.3rem; }
   .famous-btn:hover { border-color:var(--accent); color:var(--accent2); background:rgba(108,92,231,0.1); }
   .famous-btn.added { border-color:var(--green); color:var(--green); background:rgba(0,184,148,0.08); pointer-events:none; }
-
   #guest-editor { margin-top:0.8rem; margin-bottom:1.2rem; display:none; }
   #guest-editor.visible { display:block; }
   .guest-editor-title { font-size:0.9rem; font-weight:600; margin-bottom:0.8rem; color:var(--text); display:flex; align-items:center; justify-content:space-between; }
-  .guest-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:0.8rem; margin-bottom:0.6rem; position:relative; animation:fadeIn 0.3s ease; }
+  .guest-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:0.8rem; margin-bottom:0.6rem; animation:fadeIn 0.3s ease; }
   .guest-card-header { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem; }
-  .guest-emoji-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:var(--surface); font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color 0.2s; flex-shrink:0; position:relative; }
+  .guest-emoji-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:var(--surface); font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; position:relative; }
   .guest-emoji-btn:hover { border-color:var(--accent); }
   .guest-card-header input { flex:1; margin-bottom:0!important; padding:0.4rem 0.6rem!important; font-size:0.9rem!important; }
   .guest-remove-btn { width:28px; height:28px; border-radius:6px; border:1px solid var(--border); background:transparent; color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1rem; transition:all 0.2s; flex-shrink:0; }
@@ -72,12 +59,9 @@
   .guest-fields input.wide { grid-column:1/-1; }
   .guest-add-btn { width:100%; padding:0.5rem; border-radius:8px; border:1px dashed var(--border); background:transparent; color:var(--text2); font-size:0.85rem; cursor:pointer; transition:all 0.2s; margin-top:0.4rem; }
   .guest-add-btn:hover { border-color:var(--accent); color:var(--accent2); }
-
   .emoji-picker { position:absolute; top:100%; left:0; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:0.5rem; display:grid; grid-template-columns:repeat(8,1fr); gap:0.2rem; z-index:100; box-shadow:0 8px 24px rgba(0,0,0,0.4); animation:fadeIn 0.15s; }
   .emoji-picker button { width:32px; height:32px; border:none; background:transparent; font-size:1.1rem; cursor:pointer; border-radius:4px; }
   .emoji-picker button:hover { background:var(--surface2); }
-
-  /* Meeting */
   #meeting-screen { display:none; height:100vh; flex-direction:column; animation:fadeIn 0.6s ease; }
   .meeting-header { display:flex; align-items:center; justify-content:space-between; padding:0.8rem 1.5rem; background:var(--surface); border-bottom:1px solid var(--border); flex-shrink:0; }
   .meeting-header h2 { font-size:1.1rem; font-weight:600; display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; }
@@ -85,23 +69,21 @@
   .meeting-header h2 .ai-tag { font-size:0.7rem; padding:0.15rem 0.4rem; border-radius:4px; font-weight:500; }
   .ai-tag.on { background:rgba(0,184,148,0.15); color:var(--green); }
   .ai-tag.off { background:rgba(139,143,168,0.15); color:var(--text2); }
-  .header-actions { display:flex; gap:0.5rem; }
   .icon-btn { width:36px; height:36px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:all 0.2s; }
   .icon-btn:hover { border-color:var(--accent); color:var(--accent2); }
-
   .meeting-body { display:flex; flex:1; overflow:hidden; }
-  .table-area { flex:1; display:flex; align-items:center; justify-content:center; position:relative; min-width:0; }
+  .table-area { flex:1; display:flex; align-items:center; justify-content:center; min-width:0; }
   .roundtable-container { position:relative; width:500px; height:500px; }
   .table-surface { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:180px; height:180px; border-radius:50%; background:radial-gradient(circle,var(--surface2) 0%,var(--surface) 100%); border:2px solid var(--border); box-shadow:0 0 40px rgba(108,92,231,0.08),inset 0 0 30px rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center; flex-direction:column; }
   .table-surface .table-icon { font-size:1.6rem; opacity:0.5; }
   .table-surface .table-label { font-size:0.7rem; color:var(--text2); margin-top:0.3rem; }
-
   .seat { position:absolute; display:flex; flex-direction:column; align-items:center; gap:0.3rem; cursor:pointer; transition:transform 0.2s; }
   .seat:hover { transform:scale(1.08); }
-  .avatar { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; font-weight:700; border:3px solid var(--border); transition:all 0.3s; }
+  .avatar { width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; border:3px solid var(--border); transition:all 0.3s; }
   .seat.speaking .avatar { border-color:var(--green); box-shadow:0 0 20px rgba(0,184,148,0.4); animation:pulse 1.2s infinite; }
   .seat.thinking .avatar { border-color:var(--orange); animation:thinkPulse 1.5s infinite; }
   .seat.user-seat .avatar { border-color:var(--cyan); box-shadow:0 0 12px rgba(0,206,201,0.3); }
+  .seat.moderator-seat .avatar { border-color:var(--moderator); box-shadow:0 0 12px rgba(253,203,110,0.3); }
   @keyframes pulse { 0%,100%{box-shadow:0 0 20px rgba(0,184,148,0.4)} 50%{box-shadow:0 0 30px rgba(0,184,148,0.7)} }
   @keyframes thinkPulse { 0%,100%{box-shadow:0 0 15px rgba(253,203,110,0.3)} 50%{box-shadow:0 0 25px rgba(253,203,110,0.6)} }
   .seat-name { font-size:0.75rem; color:var(--text2); max-width:76px; text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -110,429 +92,373 @@
   .speech-bubble { position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%); background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:0.5rem 0.7rem; font-size:0.75rem; max-width:220px; line-height:1.4; color:var(--text); box-shadow:0 4px 12px rgba(0,0,0,0.3); opacity:0; pointer-events:none; transition:opacity 0.3s; z-index:10; }
   .speech-bubble::after { content:''; position:absolute; top:100%; left:50%; transform:translateX(-50%); border:6px solid transparent; border-top-color:var(--surface2); }
   .seat.speaking .speech-bubble { opacity:1; }
-
-  .chat-panel { width:400px; border-left:1px solid var(--border); display:flex; flex-direction:column; background:var(--surface); flex-shrink:0; }
+  .chat-panel { width:420px; border-left:1px solid var(--border); display:flex; flex-direction:column; background:var(--surface); flex-shrink:0; }
   .chat-panel-header { padding:0.8rem 1rem; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
   .chat-panel-header span { font-weight:600; font-size:0.95rem; }
   .chat-messages { flex:1; overflow-y:auto; padding:1rem; display:flex; flex-direction:column; gap:0.8rem; }
   .chat-messages::-webkit-scrollbar { width:4px; }
   .chat-messages::-webkit-scrollbar-track { background:transparent; }
   .chat-messages::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
-
   .msg { display:flex; gap:0.6rem; animation:msgIn 0.3s ease; }
   @keyframes msgIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
   .msg-avatar { width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.85rem; flex-shrink:0; }
   .msg-body { flex:1; min-width:0; }
-  .msg-name { font-size:0.8rem; font-weight:600; margin-bottom:0.2rem; }
+  .msg-header { display:flex; align-items:center; gap:0.4rem; margin-bottom:0.2rem; flex-wrap:wrap; }
+  .msg-name { font-size:0.8rem; font-weight:600; }
+  .msg-action { font-size:0.68rem; padding:0.1rem 0.35rem; border-radius:3px; font-weight:500; }
+  .msg-action.a-反驳 { background:rgba(225,112,85,0.15); color:var(--red); }
+  .msg-action.a-质疑 { background:rgba(253,203,110,0.15); color:var(--orange); }
+  .msg-action.a-补充 { background:rgba(108,92,231,0.15); color:var(--accent2); }
+  .msg-action.a-支持 { background:rgba(0,184,148,0.15); color:var(--green); }
+  .msg-action.a-追问 { background:rgba(0,206,201,0.15); color:var(--cyan); }
+  .msg-action.a-陈述 { background:rgba(139,143,168,0.15); color:var(--text2); }
   .msg-text { font-size:0.88rem; line-height:1.6; color:var(--text); word-break:break-word; }
+  .msg-tldr { font-size:0.78rem; color:var(--orange); margin-top:0.3rem; padding:0.25rem 0.5rem; background:rgba(253,203,110,0.06); border-left:2px solid var(--orange); border-radius:0 4px 4px 0; }
   .msg-time { font-size:0.7rem; color:var(--text2); margin-top:0.2rem; }
   .msg.user-msg .msg-name { color:var(--cyan); }
+  .msg.moderator-msg .msg-name { color:var(--moderator); }
   .msg.system-msg .msg-text { color:var(--text2); font-style:italic; font-size:0.82rem; }
   .msg.system-msg .msg-avatar { background:var(--surface2)!important; font-size:0.7rem; }
-  .msg.error-msg .msg-text { color:var(--red); }
-
+  .ascii-chart { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:0.8rem; margin:0.4rem 0; font-family:'Courier New',monospace; font-size:0.76rem; line-height:1.5; white-space:pre; overflow-x:auto; color:var(--cyan); }
+  .guiding-q { background:rgba(253,203,110,0.08); border:1px solid rgba(253,203,110,0.2); border-radius:6px; padding:0.35rem 0.6rem; margin:0.3rem 0; font-size:0.85rem; color:var(--moderator); }
   .chat-input-area { padding:0.8rem 1rem; border-top:1px solid var(--border); flex-shrink:0; }
   .input-row { display:flex; gap:0.5rem; align-items:flex-end; }
   .chat-input-area textarea { flex:1; padding:0.65rem 0.9rem; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:inherit; font-size:0.9rem; resize:none; outline:none; min-height:40px; max-height:120px; line-height:1.4; }
   .chat-input-area textarea:focus { border-color:var(--accent); }
-  .send-btn { width:40px; height:40px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),#4a3dd6); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.2rem; transition:transform 0.15s; flex-shrink:0; }
+  .send-btn { width:40px; height:40px; border-radius:10px; border:none; background:linear-gradient(135deg,var(--accent),#4a3dd6); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
   .send-btn:hover { transform:scale(1.05); }
-  .input-hint { font-size:0.7rem; color:var(--text2); margin-top:0.4rem; text-align:center; }
-
-  .controls-bar { display:flex; align-items:center; justify-content:center; gap:0.6rem; padding:0.6rem 1rem; border-top:1px solid var(--border); background:var(--surface); flex-shrink:0; }
-  .ctrl-btn { padding:0.45rem 1rem; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; font-size:0.82rem; transition:all 0.2s; display:flex; align-items:center; gap:0.35rem; }
-  .ctrl-btn:hover { border-color:var(--accent); color:var(--accent2); }
+  .input-hint { font-size:0.68rem; color:var(--text2); margin-top:0.4rem; text-align:center; }
+  .controls-bar { display:flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.6rem 1rem; border-top:1px solid var(--border); background:var(--surface); flex-shrink:0; flex-wrap:wrap; }
+  .ctrl-btn { padding:0.4rem 0.7rem; border-radius:8px; border:1px solid var(--border); background:var(--surface2); color:var(--text2); cursor:pointer; font-size:0.78rem; transition:all 0.2s; display:flex; align-items:center; gap:0.2rem; white-space:nowrap; }
+  .ctrl-btn:hover:not(:disabled) { border-color:var(--accent); color:var(--accent2); }
+  .ctrl-btn.accent { border-color:var(--accent); color:var(--accent2); }
+  .ctrl-btn.accent:hover:not(:disabled) { background:rgba(108,92,231,0.15); }
   .ctrl-btn.danger { border-color:var(--red); color:var(--red); }
-  .ctrl-btn.danger:hover { background:rgba(225,112,85,0.1); }
-
+  .ctrl-btn.danger:hover:not(:disabled) { background:rgba(225,112,85,0.1); }
+  .ctrl-btn:disabled { opacity:0.35; cursor:not-allowed; }
   .status-badge { font-size:0.75rem; padding:0.2rem 0.5rem; border-radius:6px; display:inline-flex; align-items:center; gap:0.3rem; }
   .status-badge.running { background:rgba(0,184,148,0.1); color:var(--green); }
   .status-badge.paused { background:rgba(253,203,110,0.1); color:var(--orange); }
   .status-badge.idle { background:rgba(139,143,168,0.1); color:var(--text2); }
+  .status-badge.ended { background:rgba(225,112,85,0.1); color:var(--red); }
+  .status-badge.synthesizing { background:rgba(253,203,110,0.1); color:var(--moderator); }
   .status-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
   .status-badge.running .status-dot { animation:blink 1.2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-  @media(max-width:900px) {
-    .meeting-body{flex-direction:column;} .chat-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:50vh;} .roundtable-container{width:320px;height:320px;} .avatar{width:42px;height:42px;font-size:1.1rem;} .table-surface{width:120px;height:120px;}
-  }
+  @media(max-width:900px) { .meeting-body{flex-direction:column;} .chat-panel{width:100%;border-left:none;border-top:1px solid var(--border);max-height:50vh;} .roundtable-container{width:320px;height:320px;} .avatar{width:42px;height:42px;font-size:1.1rem;} .table-surface{width:120px;height:120px;} }
 </style>
 </head>
 <body>
 
 <div id="setup-screen">
   <h1>🪑 圆桌会议</h1>
-  <p class="subtitle">设定主题，邀请嘉宾，随时插话</p>
+  <p class="subtitle">以「求真」为目标的深度对话</p>
   <div class="setup-card">
     <label>会议主题</label>
-    <input type="text" id="topic-input" placeholder="例如：AI是否会取代人类的工作？" />
+    <input type="text" id="topic-input" placeholder="例如：AI是否拥有真正的创造力？" />
     <label>快速预设</label>
     <div class="presets">
-      <button class="preset-btn" data-topic="AI是否会取代人类的工作？" data-hint="不同立场的技术专家与社会学者">🤖 AI取代工作</button>
-      <button class="preset-btn" data-topic="创业公司应该追求快速增长还是可持续盈利？" data-hint="创业者、投资人、经营者的博弈">🚀 增长 vs 盈利</button>
-      <button class="preset-btn" data-topic="碳达峰目标下，经济增长与环保如何平衡？" data-hint="经济学家、环保人士、企业代表">🌍 经济 vs 环保</button>
+      <button class="preset-btn" data-topic="AI是否会取代人类的工作？" data-hint="技术乐观派与人文关怀者的碰撞">🤖 AI取代工作</button>
+      <button class="preset-btn" data-topic="创业公司应该追求快速增长还是可持续盈利？" data-hint="创业者、投资人的博弈">🚀 增长 vs 盈利</button>
+      <button class="preset-btn" data-topic="碳达峰目标下，经济增长与环保如何平衡？" data-hint="经济学家、环保人士的分歧">🌍 经济 vs 环保</button>
+      <button class="preset-btn" data-topic="AI是否拥有真正的创造力？" data-hint="艺术家、工程师、哲学家的对话">🎨 AI创造力</button>
     </div>
     <label>补充说明（可选）</label>
     <textarea id="context-input" placeholder="背景信息、讨论重点…"></textarea>
-
-    <!-- API Config -->
-    <div class="section-divider">🤖 AI 模型（接上才有深度讨论）</div>
-    <div style="font-size:0.95rem;font-weight:600;margin-bottom:0.5rem;">🤖 AI 模型配置 <span style="font-size:0.75rem;color:var(--text2);font-weight:400;">填入 API 即 AI 驱动讨论，留空则用本地模式</span></div>
+    <div class="section-divider">🤖 AI 模型</div>
     <div class="api-config" id="api-config">
-      <div class="hint">自动识别 API 类型：OpenAI 兼容（DeepSeek/通义/Moonshot）和 Anthropic Claude 都支持<br>地址填完整端点，点「测试连接」确认</div>
-      <input type="text" id="api-url" placeholder="API 地址，如 https://api.deepseek.com/v1/chat/completions 或 https://api.anthropic.com/v1/messages" />
-      <input type="text" id="api-key" placeholder="API Key（Anthropic 填 sk-ant-...）" />
-      <input type="text" id="api-model" placeholder="模型名，如 deepseek-chat / claude-sonnet-4-20250514 / qwen-plus" />
+      <div class="hint">已内置 DeepSeek AI，开箱即用 🎉 也可换成自己的 API</div>
+      <input type="text" id="api-url" value="https://api.deepseek.com/v1/chat/completions" placeholder="API 地址" />
+      <input type="password" id="api-key" value="sk-0486a25961814f599641de21fb1559ba" placeholder="API Key" />
+      <input type="text" id="api-model" value="deepseek-chat" placeholder="模型名" />
       <div style="display:flex;gap:0.5rem;align-items:center;">
-        <button class="gen-btn" id="api-test-btn" style="flex:none;padding:0.4rem 1rem;font-size:0.85rem;">🔧 测试连接</button>
+        <button class="gen-btn" id="api-test-btn" style="flex:none;padding:0.4rem 1rem;font-size:0.85rem;">🔧 测试</button>
         <span class="api-status" id="api-status"></span>
       </div>
     </div>
-
     <div class="section-divider">👥 嘉宾</div>
-    <div class="btn-row">
-      <button class="gen-btn" id="gen-btn">🎲 根据主题生成嘉宾</button>
-    </div>
+    <div class="btn-row"><button class="gen-btn" id="gen-btn">🎲 根据主题生成嘉宾</button></div>
     <div class="famous-row" id="famous-row"></div>
     <div id="guest-editor">
-      <div class="guest-editor-title"><span>👥 嘉宾名单（点击编辑）</span><span id="guest-count" style="font-size:0.8rem;color:var(--text2)"></span></div>
+      <div class="guest-editor-title"><span>👥 嘉宾名单</span><span id="guest-count" style="font-size:0.8rem;color:var(--text2)"></span></div>
       <div id="guest-list"></div>
       <button class="guest-add-btn" id="guest-add-btn">+ 添加自定义嘉宾</button>
     </div>
-    <button class="start-btn" id="start-btn" style="margin-top:0.8rem">🚀 开始会议</button>
+    <button class="start-btn" id="start-btn" style="margin-top:0.8rem">🚀 开始研讨</button>
   </div>
 </div>
 
 <div id="meeting-screen">
   <div class="meeting-header">
     <h2>🪑 圆桌会议 <span class="topic-tag" id="topic-tag"></span> <span class="ai-tag" id="ai-tag"></span> <span class="status-badge idle" id="status-badge"><span class="status-dot"></span>准备中</span></h2>
-    <div class="header-actions"><button class="icon-btn" id="back-btn" title="返回设置">←</button></div>
+    <div><button class="icon-btn" id="back-btn" title="返回设置">←</button></div>
   </div>
   <div class="meeting-body">
-    <div class="table-area"><div class="roundtable-container" id="roundtable"><div class="table-surface"><span class="table-icon">🗣️</span><span class="table-label">讨论中</span></div></div></div>
+    <div class="table-area"><div class="roundtable-container" id="roundtable"><div class="table-surface"><span class="table-icon">⚖️</span><span class="table-label">求真</span></div></div></div>
     <div class="chat-panel">
-      <div class="chat-panel-header"><span>💬 会议记录</span><span style="font-size:0.75rem;color:var(--text2)" id="msg-count">0 条发言</span></div>
+      <div class="chat-panel-header"><span>💬 研讨记录</span><span style="font-size:0.75rem;color:var(--text2)" id="msg-count">0 条发言</span></div>
       <div class="chat-messages" id="chat-messages"></div>
       <div class="chat-input-area">
         <div class="input-row">
-          <textarea id="user-input" placeholder="随时插话… (Enter 发送)" rows="1"></textarea>
+          <textarea id="user-input" placeholder="插话/提问… (Enter 发送)" rows="1"></textarea>
           <button class="send-btn" id="send-btn">➤</button>
         </div>
-        <div class="input-hint">你的发言会打断当前讨论，嘉宾会回应你</div>
+        <div class="input-hint">指令：可=推进 | 深入=追问 | 止=暂停</div>
       </div>
     </div>
   </div>
   <div class="controls-bar">
-    <button class="ctrl-btn" id="play-btn">▶ 继续</button>
+    <button class="ctrl-btn accent" id="play-btn">▶ 推进</button>
     <button class="ctrl-btn" id="pause-btn">⏸ 暂停</button>
-    <button class="ctrl-btn" id="next-btn">⏭ 跳过</button>
+    <button class="ctrl-btn" id="deepen-btn">🔍 深入</button>
     <button class="ctrl-btn" id="summarize-btn">📋 总结</button>
     <button class="ctrl-btn danger" id="end-btn">⏹ 结束</button>
   </div>
 </div>
 
 <script>
+const DEFAULT_API_URL='https://api.deepseek.com/v1/chat/completions';
+const DEFAULT_API_KEY='sk-0486a25961814f599641de21fb1559ba';
+const DEFAULT_API_MODEL='deepseek-chat';
+const API_TIMEOUT=45000;
+const SYNTH_EVERY=3;
+
 const COLORS=['#6c5ce7','#00b894','#e17055','#0984e3','#fdcb6e','#fd79a8','#00cec9','#d63031','#e84393','#55a3e8'];
 const EMOJIS=['🧑‍💻','👩‍🏫','👨‍💼','🧑‍🎓','👩‍💼','👨‍⚖️','🧑‍🎨','👷','🧐','🎯','🔮','🎤','🌱','📊','⚖️','💡','📚','🎓','🔧','🧠','🤓','👨‍💻','👩‍🔬','🎩','👑','💼','🕊️','🔥','🪶','📖'];
 
-let state={topic:'',context:'',participants:[],userMessages:[],messages:[],isRunning:false,isPaused:false,currentSpeaker:null,discussionRound:0,skipRequested:false,useAI:false,apiConfig:{url:'',key:'',model:''}};
-let draftGuests=[];
+let state={topic:'',context:'',participants:[],userMessages:[],messages:[],isRunning:false,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI:true,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,roundNumber:0,guidingQuestion:'',deepening:false};
+let draftGuests=[];let speakCount={};
 
 const $=id=>document.getElementById(id);
-const setupScreen=$('setup-screen'),meetingScreen=$('meeting-screen'),topicInput=$('topic-input'),contextInput=$('context-input'),startBtn=$('start-btn'),topicTag=$('topic-tag'),statusBadge=$('status-badge'),roundtable=$('roundtable'),chatMessages=$('chat-messages'),userInput=$('user-input'),sendBtn=$('send-btn'),playBtn=$('play-btn'),pauseBtn=$('pause-btn'),nextBtn=$('next-btn'),summarizeBtn=$('summarize-btn'),endBtn=$('end-btn'),backBtn=$('back-btn'),msgCount=$('msg-count'),guestEditor=$('guest-editor'),guestList=$('guest-list'),guestCount=$('guest-count'),genBtn=$('gen-btn'),guestAddBtn=$('guest-add-btn'),famousRow=$('famous-row'),apiToggle=$('api-toggle'),apiConfigDiv=$('api-config'),apiUrl=$('api-url'),apiKey=$('api-key'),apiModel=$('api-model'),apiTestBtn=$('api-test-btn'),apiStatus=$('api-status'),aiTag=$('ai-tag');
+const topicInput=$('topic-input'),contextInput=$('context-input'),startBtn=$('start-btn'),topicTag=$('topic-tag'),statusBadge=$('status-badge'),roundtable=$('roundtable'),chatMessages=$('chat-messages'),userInput=$('user-input'),sendBtn=$('send-btn'),playBtn=$('play-btn'),pauseBtn=$('pause-btn'),deepenBtn=$('deepen-btn'),summarizeBtn=$('summarize-btn'),endBtn=$('end-btn'),backBtn=$('back-btn'),msgCount=$('msg-count'),guestEditor=$('guest-editor'),guestList=$('guest-list'),guestCount=$('guest-count'),genBtn=$('gen-btn'),guestAddBtn=$('guest-add-btn'),famousRow=$('famous-row'),apiUrl=$('api-url'),apiKey=$('api-key'),apiModel=$('api-model'),apiTestBtn=$('api-test-btn'),apiStatus=$('api-status'),aiTag=$('ai-tag');
 
-document.querySelectorAll('.preset-btn').forEach(b=>b.addEventListener('click',()=>{topicInput.value=b.dataset.topic;contextInput.value=b.dataset.hint;topicInput.focus();}));
+document.querySelectorAll('.preset-btn').forEach(b=>b.addEventListener('click',()=>{topicInput.value=b.dataset.topic;contextInput.value=b.dataset.hint;topicInput.style.borderColor='';}));
+topicInput.addEventListener('input',()=>{topicInput.style.borderColor='';});
 
-// ===== API CONFIG =====
-// api config always visible
-// Restore saved config
-try{const saved=JSON.parse(localStorage.getItem('roundtable_api')||'{}');if(saved.url){apiUrl.value=saved.url||'';apiKey.value=saved.key||'';apiModel.value=saved.model||'';}}catch(e){}
+function updateButtons(){const r=state.isRunning,p=state.isPaused,e=state.isEnded;playBtn.disabled=!r||e;pauseBtn.disabled=!r||p||e;deepenBtn.disabled=!r||e;summarizeBtn.disabled=state.summarizing;endBtn.disabled=e;userInput.disabled=e;sendBtn.disabled=e;}
 
 function isAnthropicAPI(url){return /anthropic/i.test(url);}
+function getAPIConfig(){return{url:apiUrl.value.trim()||DEFAULT_API_URL,key:apiKey.value.trim()||DEFAULT_API_KEY,model:apiModel.value.trim()||DEFAULT_API_MODEL};}
+async function fetchWithTimeout(u,o,ms){const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);try{const r=await fetch(u,{...o,signal:c.signal});clearTimeout(t);return r;}catch(e){clearTimeout(t);if(e.name==='AbortError')throw new Error('请求超时');throw e;}}
 
-apiTestBtn.addEventListener('click',async()=>{
-  const url=apiUrl.value.trim(),key=apiKey.value.trim(),model=apiModel.value.trim();
-  if(!url||!key){apiStatus.textContent='请填写地址和 Key';apiStatus.className='api-status err';return;}
-  apiStatus.textContent='测试中…';apiStatus.className='api-status testing';
-  try{
-    let r;
-    if(isAnthropicAPI(url)){
-      r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:model||'claude-sonnet-4-20250514',max_tokens:20,messages:[{role:'user',content:'hi'}]})});
-    }else{
-      r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`},body:JSON.stringify({model:model||'test',messages:[{role:'user',content:'hi'}],max_tokens:5})});
-    }
-    if(r.ok){apiStatus.textContent='✅ 连接成功！';apiStatus.className='api-status ok';}else{const t=await r.text().catch(()=>'');apiStatus.textContent=`❌ ${r.status} ${t.slice(0,100)}`;apiStatus.className='api-status err';}
-  }catch(e){apiStatus.textContent=`❌ ${e.message}`;apiStatus.className='api-status err';}
-});
+apiTestBtn.addEventListener('click',async()=>{const{url,key,model}=getAPIConfig();if(!url||!key){apiStatus.textContent='请填写地址和Key';apiStatus.className='api-status err';return;}apiStatus.textContent='测试中…';apiStatus.className='api-status testing';try{let r;if(isAnthropicAPI(url)){r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model,max_tokens:20,messages:[{role:'user',content:'hi'}]})},API_TIMEOUT);}else{r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages:[{role:'user',content:'hi'}],max_tokens:5})},API_TIMEOUT);}if(r.ok){apiStatus.textContent='✅ 连接成功';apiStatus.className='api-status ok';}else{const t=await r.text().catch(()=>'');apiStatus.textContent='❌ '+r.status+' '+t.slice(0,80);apiStatus.className='api-status err';}}catch(e){apiStatus.textContent='❌ '+e.message;apiStatus.className='api-status err';}});
 
-function saveAPIConfig(){localStorage.setItem('roundtable_api',JSON.stringify({url:apiUrl.value.trim(),key:apiKey.value.trim(),model:apiModel.value.trim()}));}
+async function callLLM(messages){const{url,key,model}=getAPIConfig();if(!url||!key)throw new Error('API未配置');if(isAnthropicAPI(url)){let sys='';const cm=messages.filter(m=>{if(m.role==='system'){sys+=m.content+'\n';return false;}return true;}).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.content}));const body={model,max_tokens:600,messages:cm,temperature:0.85};if(sys.trim())body.system=sys.trim();const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.content?.[0]?.text?.trim()||'';}else{const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages,temperature:0.85,max_tokens:600})},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.choices?.[0]?.message?.content?.trim()||'';}}
 
-async function callLLM(messages){
-  const url=(state.apiConfig?.url||apiUrl.value).trim(),key=(state.apiConfig?.key||apiKey.value).trim(),model=(state.apiConfig?.model||apiModel.value).trim();
-  if(!url||!key) throw new Error('API 未配置');
-  if(isAnthropicAPI(url)){
-    let systemContent='';
-    const chatMsgs=messages.filter(m=>{if(m.role==='system'){systemContent+=m.content+'\n';return false;}return true;}).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.content}));
-    const body={model:model||'claude-sonnet-4-20250514',max_tokens:500,messages:chatMsgs,temperature:0.85};
-    if(systemContent.trim()) body.system=systemContent.trim();
-    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)});
-    if(!r.ok){const t=await r.text().catch(()=>'');throw new Error(`Anthropic ${r.status}: ${t.slice(0,200)}`);}
-    const d=await r.json();
-    return d.content?.[0]?.text?.trim()||'';
-  }else{
-    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${key}`},body:JSON.stringify({model:model||'deepseek-chat',messages,temperature:0.85,max_tokens:500})});
-    if(!r.ok){const t=await r.text().catch(()=>'');throw new Error(`API ${r.status}: ${t.slice(0,200)}`);}
-    const d=await r.json();
-    return d.choices?.[0]?.message?.content?.trim()||'';
-  }
-}
+const FAMOUS={buffet:{name:'巴菲特',title:'投资家',stance:'长期价值投资，恐惧时贪婪',personality:'幽默睿智，爱用比喻',emoji:'🎩',catchphrase:'别人恐惧我贪婪',keywords:['投资','价值','长期','复利']},musk:{name:'马斯克',title:'企业家',stance:'用科技颠覆一切，第一性原理思考',personality:'大胆激进，天马行空',emoji:'🚀',catchphrase:'第一性原理告诉我一切皆有可能',keywords:['创新','颠覆','技术','效率']},jobs:{name:'乔布斯',title:'产品哲学家',stance:'极致产品主义，简约即力量',personality:'追求完美，直觉驱动',emoji:'🍎',catchphrase:'Stay hungry, stay foolish',keywords:['产品','设计','简约','极致']},munger:{name:'芒格',title:'思想家',stance:'多学科思维模型，逆向思考',personality:'犀利毒舌，善于反讽',emoji:'📚',catchphrase:'反过来想，总是反过来想',keywords:['思维模型','逆向','理性']},dalio:{name:'达利欧',title:'桥水基金创始人',stance:'极度透明，原则驱动',personality:'系统化思考者',emoji:'📊',catchphrase:'痛苦+反思=进步',keywords:['原则','系统','周期']},kahneman:{name:'卡尼曼',title:'行为心理学家',stance:'人类判断充满认知偏误',personality:'温和理性',emoji:'🧠',catchphrase:'我们往往过度自信',keywords:['偏误','认知','判断','理性']},confucius:{name:'孔子',title:'思想家·教育家',stance:'仁义礼智信，中庸之道',personality:'温和敦厚，循循善诱',emoji:'📖',catchphrase:'己所不欲，勿施于人',keywords:['仁义','礼','中庸','道德']},sfang:{name:'苏轼',title:'文学家',stance:'豁达乐观，随遇而安',personality:'豪放不羁，幽默洒脱',emoji:'🌙',catchphrase:'一蓑烟雨任平生',keywords:['豁达','乐观','自由','风骨']}};
 
-// ===== FAMOUS =====
-const FAMOUS={
-  buffet:{name:'巴菲特',title:'投资家·伯克希尔CEO',stance:'长期价值投资，恐惧时贪婪，相信复利的力量',personality:'幽默睿智，朴素接地气，爱用比喻和故事说理',emoji:'🎩',catchphrase:'别人恐惧我贪婪，别人贪婪我恐惧。',keywords:['投资','价值','长期','复利','回报','现金流','企业','安全边际']},
-  musk:{name:'马斯克',title:'企业家·特斯拉/SpaceX',stance:'用科技颠覆一切，第一性原理思考，为人类文明扩张边界',personality:'大胆激进，天马行空，说话直接甚至疯狂',emoji:'🚀',catchphrase:'物理学的第一性原理告诉我，一切皆有可能。',keywords:['创新','第一性','火星','颠覆','技术','效率','规模','制造']},
-  jobs:{name:'乔布斯',title:'苹果创始人',stance:'极致产品主义，科技与人文交汇，简约即力量',personality:'追求完美，直觉驱动，偏执而充满激情',emoji:'🍎',catchphrase:'Stay hungry, stay foolish.',keywords:['产品','设计','简约','极致','体验','直觉','创新','品味']},
-  munger:{name:'芒格',title:'投资家·伯克希尔副董事长',stance:'多学科思维模型，逆向思考，避免愚蠢比追求聪明重要',personality:'犀利毒舌，博学多才，善于反讽和举例',emoji:'📚',catchphrase:'反过来想，总是反过来想。',keywords:['思维模型','逆向','安全边际','理性','常识','避免','愚蠢','检查清单']},
-  dalio:{name:'达利欧',title:'桥水基金创始人',stance:'极度透明，原则驱动，理解经济机器的运行规律',personality:'系统化思考者，强调原则和规律',emoji:'📊',catchphrase:'痛苦+反思=进步。',keywords:['原则','系统','周期','债务','透明','进化','规律','机器']},
-  kahneman:{name:'卡尼曼',title:'诺奖得主·行为心理学家',stance:'人类判断充满认知偏误，快思考与慢思考的博弈',personality:'温和理性，善用实验揭示非理性行为',emoji:'🧠',catchphrase:'我们对自己认为知道的东西，往往过度自信。',keywords:['偏误','认知','判断','决策','风险','直觉','理性','损失']},
-  confucius:{name:'孔子',title:'思想家·教育家',stance:'仁义礼智信，中庸之道，有教无类',personality:'温和敦厚，循循善诱，以德服人',emoji:'📖',catchphrase:'己所不欲，勿施于人。',keywords:['仁义','礼','中庸','教育','道德','修身','和谐','君子']},
-  sfang:{name:'苏轼',title:'文学家·书法家',stance:'豁达乐观，随遇而安，在困境中依然热爱生活',personality:'豪放不羁，幽默洒脱，才华横溢',emoji:'🌙',catchphrase:'竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。',keywords:['豁达','乐观','自由','闲适','风骨','诗意','人生','旷达']},
-};
-
-function renderFamousButtons(){
-  famousRow.innerHTML='';
-  Object.entries(FAMOUS).forEach(([key,p])=>{
-    const added=draftGuests.some(g=>g.name===p.name);
-    const btn=document.createElement('button');btn.className=`famous-btn ${added?'added':''}`;btn.textContent=p.emoji+' '+p.name;
-    btn.title=`${p.title}\n立场: ${p.stance}\n性格: ${p.personality}`;
-    btn.addEventListener('click',()=>{if(added)return;draftGuests.push({...p});renderGuestEditor();renderFamousButtons();});
-    famousRow.appendChild(btn);
-  });
-}
+function renderFamousButtons(){famousRow.innerHTML='';Object.entries(FAMOUS).forEach(([k,p])=>{const added=draftGuests.some(g=>g.name===p.name);const btn=document.createElement('button');btn.className='famous-btn '+(added?'added':'');btn.textContent=p.emoji+' '+p.name;btn.addEventListener('click',()=>{if(added)return;draftGuests.push({...p});renderGuestEditor();renderFamousButtons();});famousRow.appendChild(btn);});}
 renderFamousButtons();
 
-// ===== POOLS =====
-const POOLS={
-  tech:[{name:'张明远',title:'AI研究员',stance:'技术乐观派，AI将带来更多机遇而非威胁',personality:'理性冷静，数据驱动',emoji:'🧑‍💻'},{name:'李思涵',title:'科技伦理学者',stance:'技术发展必须有伦理边界和适度监管',personality:'温和但坚定',emoji:'👩‍🏫'},{name:'陈代码',title:'全栈工程师',stance:'一线实践者，关注技术落地和实际影响',personality:'务实直率',emoji:'👨‍💻'},{name:'方算子',title:'风险投资人',stance:'看待技术的商业价值和规模化潜力',personality:'精明果断',emoji:'🧑‍💼'}],
-  business:[{name:'王建国',title:'连续创业者',stance:'增长是生存的前提，先活下来再谈理想',personality:'激进有魄力',emoji:'👨‍💼'},{name:'周婉如',title:'企业治理顾问',stance:'长期主义，可持续盈利比增长更重要',personality:'沉稳老练',emoji:'👩‍💼'},{name:'孙鸿飞',title:'天使投资人',stance:'寻找能穿越周期的商业模式',personality:'洞察力强',emoji:'🧑‍💼'},{name:'赵敏',title:'职场观察者',stance:'关注打工人实际体验和幸福感',personality:'接地气，爱吐槽',emoji:'👩‍💻'}],
-  social:[{name:'林正义',title:'公共政策学者',stance:'制度设计是解决社会问题的根本',personality:'逻辑严密',emoji:'👨‍⚖️'},{name:'陈雨萱',title:'青年代表',stance:'年轻一代的声音，追求公平与创新',personality:'活泼敢质疑',emoji:'🧑‍🎓'},{name:'刘自然',title:'NGO负责人',stance:'弱势群体利益不能被牺牲',personality:'充满理想',emoji:'🧑‍🎨'}],
-  education:[{name:'孔学文',title:'基础教育从业者',stance:'K12是根基，投资要趁早',personality:'温文尔雅',emoji:'📚'},{name:'叶博识',title:'终身学习倡导者',stance:'成人教育和技能再培训才是当务之急',personality:'视野开阔',emoji:'🎓'},{name:'苏思想',title:'教育哲学家',stance:'教育的本质是培养思考能力',personality:'理想主义',emoji:'🧠'}],
-  environment:[{name:'刘自然',title:'环保倡导者',stance:'生态红线不可突破',personality:'坚定有感染力',emoji:'🌱'},{name:'钱发展',title:'经济学家',stance:'经济发展是解决环境问题的基础',personality:'理性分析',emoji:'📊'},{name:'吴未来',title:'清洁技术创业者',stance:'技术创新可以同时实现发展和环保',personality:'乐观积极',emoji:'💡'}]
-};
+const POOLS={tech:[{name:'张明远',title:'AI研究员',stance:'技术乐观派，AI带来更多机遇',personality:'理性冷静',emoji:'🧑‍💻'},{name:'李思涵',title:'科技伦理学者',stance:'技术必须有伦理边界',personality:'温和但坚定',emoji:'👩‍🏫'}],business:[{name:'王建国',title:'创业者',stance:'增长是生存的前提',personality:'激进有魄力',emoji:'👨‍💼'},{name:'周婉如',title:'治理顾问',stance:'可持续盈利更重要',personality:'沉稳老练',emoji:'👩‍💼'}],social:[{name:'林正义',title:'政策学者',stance:'制度设计是根本',personality:'逻辑严密',emoji:'👨‍⚖️'}]};
 
-function generateDraftGuests(topic,count,context){
-  const ft=(topic+' '+(context||'')).toLowerCase();let sel;
-  if(/ai|人工智能|机器|技术|取代|算法|科技|gpt|大模型/.test(ft))sel=[...POOLS.tech];
-  else if(/创业|公司|增长|盈利|商业|职场|效率|办公|远程/.test(ft))sel=[...POOLS.business];
-  else if(/教育|学习|k12|终身|学校|培训/.test(ft))sel=[...POOLS.education];
-  else if(/环境|碳|环保|可持续|生态|气候/.test(ft))sel=[...POOLS.environment];
-  else if(/社会|公平|政策|制度|民生/.test(ft))sel=[...POOLS.social];
-  else sel=[...POOLS.tech.slice(0,2),...POOLS.business.slice(0,2),...POOLS.social.slice(0,2)];
-  for(let i=sel.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[sel[i],sel[j]]=[sel[j],sel[i]];}
-  while(sel.length<count)sel.push({name:'嘉宾'+(sel.length+1),title:'讨论者',stance:'立场待定',personality:'中立客观',emoji:EMOJIS[sel.length%EMOJIS.length]});
-  draftGuests=sel.slice(0,count).map(g=>({...g}));renderGuestEditor();renderFamousButtons();
-}
+function generateDraftGuests(topic,count,context){const ft=(topic+' '+(context||'')).toLowerCase();let sel;if(/ai|人工|机器|技术|取代|算法|科技|大模型|创造力/.test(ft))sel=[...POOLS.tech];else if(/创业|公司|增长|盈利|商业/.test(ft))sel=[...POOLS.business];else sel=[...POOLS.tech.slice(0,2),...POOLS.business.slice(0,1)];for(let i=sel.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[sel[i],sel[j]]=[sel[j],sel[i]];}while(sel.length<count)sel.push({name:'嘉宾'+(sel.length+1),title:'讨论者',stance:'独立思考',personality:'理性客观',emoji:EMOJIS[sel.length%EMOJIS.length]});draftGuests=sel.slice(0,count).map(g=>({...g}));renderGuestEditor();renderFamousButtons();}
 
-// ===== GUEST EDITOR =====
-function renderGuestEditor(){
-  guestEditor.classList.add('visible');guestCount.textContent=`${draftGuests.length} 位`;guestList.innerHTML='';
-  draftGuests.forEach((g,i)=>{
-    const isF=Object.values(FAMOUS).some(f=>f.name===g.name);
-    const card=document.createElement('div');card.className='guest-card';if(isF)card.style.borderColor='rgba(253,203,110,0.3)';
-    card.innerHTML=`
-      <div class="guest-card-header">
-        <button class="guest-emoji-btn" data-i="${i}">${g.emoji}</button>
-        <input type="text" value="${esc(g.name)}" placeholder="姓名" data-field="name" data-i="${i}" />
-        ${isF?'<span style="font-size:0.7rem;color:var(--orange);flex-shrink:0">⭐</span>':''}
-        <button class="guest-remove-btn" data-i="${i}">×</button>
-      </div>
-      <div class="guest-fields">
-        <input type="text" value="${esc(g.title)}" placeholder="身份/职业" data-field="title" data-i="${i}" />
-        <input type="text" value="${esc(g.personality)}" placeholder="性格特点" data-field="personality" data-i="${i}" />
-        <input type="text" value="${esc(g.stance)}" placeholder="立场观点" data-field="stance" data-i="${i}" class="wide" />
-        ${g.catchphrase?`<input type="text" value="${esc(g.catchphrase)}" placeholder="口头禅/名言（选填）" data-field="catchphrase" data-i="${i}" class="wide" />`:''}
-      </div>`;
-    guestList.appendChild(card);
-  });
-  guestList.querySelectorAll('input[data-field]').forEach(inp=>{inp.addEventListener('input',()=>{const i=parseInt(inp.dataset.i),f=inp.dataset.field;if(draftGuests[i])draftGuests[i][f]=inp.value;});});
-  guestList.querySelectorAll('.guest-remove-btn').forEach(btn=>{btn.addEventListener('click',()=>{draftGuests.splice(parseInt(btn.dataset.i),1);renderGuestEditor();renderFamousButtons();});});
-  guestList.querySelectorAll('.guest-emoji-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();openEP(btn,parseInt(btn.dataset.i));});});
-}
-function openEP(a,idx){
-  document.querySelectorAll('.emoji-picker').forEach(p=>p.remove());
-  const pk=document.createElement('div');pk.className='emoji-picker';
-  EMOJIS.forEach(em=>{const b=document.createElement('button');b.textContent=em;b.addEventListener('click',(e)=>{e.stopPropagation();draftGuests[idx].emoji=em;a.textContent=em;pk.remove();});pk.appendChild(b);});
-  a.style.position='relative';a.appendChild(pk);
-  setTimeout(()=>{document.addEventListener('click',function cl(e){if(!pk.contains(e.target)){pk.remove();document.removeEventListener('click',cl);}});},10);
-}
-guestAddBtn.addEventListener('click',()=>{draftGuests.push({name:'新嘉宾',title:'自定义角色',stance:'立场待设定',personality:'性格待设定',emoji:EMOJIS[draftGuests.length%EMOJIS.length]});renderGuestEditor();renderFamousButtons();guestList.lastElementChild?.scrollIntoView({behavior:'smooth',block:'nearest'});});
-genBtn.addEventListener('click',()=>{const topic=topicInput.value.trim();if(!topic){topicInput.style.borderColor='var(--red)';return;}generateDraftGuests(topic,4,contextInput.value.trim());});
 function esc(s){return(s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+function renderGuestEditor(){guestEditor.classList.add('visible');guestCount.textContent=draftGuests.length+' 位';guestList.innerHTML='';draftGuests.forEach((g,i)=>{const isF=Object.values(FAMOUS).some(f=>f.name===g.name);const card=document.createElement('div');card.className='guest-card';if(isF)card.style.borderColor='rgba(253,203,110,0.3)';card.innerHTML='<div class="guest-card-header"><button class="guest-emoji-btn" data-i="'+i+'">'+g.emoji+'</button><input type="text" value="'+esc(g.name)+'" placeholder="姓名" data-field="name" data-i="'+i+'" />'+((isF)?'<span style="font-size:0.7rem;color:var(--orange);flex-shrink:0">⭐</span>':'')+'<button class="guest-remove-btn" data-i="'+i+'">×</button></div><div class="guest-fields"><input type="text" value="'+esc(g.title)+'" placeholder="身份" data-field="title" data-i="'+i+'" /><input type="text" value="'+esc(g.stance)+'" placeholder="立场" data-field="stance" data-i="'+i+'" class="wide" /></div>';guestList.appendChild(card);});guestList.querySelectorAll('input[data-field]').forEach(inp=>{inp.addEventListener('input',()=>{const i=parseInt(inp.dataset.i),f=inp.dataset.field;if(draftGuests[i])draftGuests[i][f]=inp.value;});});guestList.querySelectorAll('.guest-remove-btn').forEach(btn=>{btn.addEventListener('click',()=>{draftGuests.splice(parseInt(btn.dataset.i),1);renderGuestEditor();renderFamousButtons();});});guestList.querySelectorAll('.guest-emoji-btn').forEach(btn=>{btn.addEventListener('click',(e)=>{e.stopPropagation();openEP(btn,parseInt(btn.dataset.i));});});}
+
+function openEP(a,idx){document.querySelectorAll('.emoji-picker').forEach(p=>p.remove());const pk=document.createElement('div');pk.className='emoji-picker';EMOJIS.forEach(em=>{const b=document.createElement('button');b.textContent=em;b.addEventListener('click',(e)=>{e.stopPropagation();draftGuests[idx].emoji=em;a.textContent=em;pk.remove();});pk.appendChild(b);});a.appendChild(pk);setTimeout(()=>{document.addEventListener('click',function cl(e){if(!pk.contains(e.target)){pk.remove();document.removeEventListener('click',cl);}});},10);}
+guestAddBtn.addEventListener('click',()=>{draftGuests.push({name:'新嘉宾',title:'自定义角色',stance:'独立思考',emoji:EMOJIS[draftGuests.length%EMOJIS.length]});renderGuestEditor();renderFamousButtons();});
+genBtn.addEventListener('click',()=>{const t=topicInput.value.trim();if(!t){topicInput.style.borderColor='var(--red)';return;}generateDraftGuests(t,3,contextInput.value.trim());});
 
 // ===== START =====
 startBtn.addEventListener('click',startMeeting);
 async function startMeeting(){
   const topic=topicInput.value.trim();if(!topic){topicInput.style.borderColor='var(--red)';return;}
-  if(!guestEditor.classList.contains('visible'))generateDraftGuests(topic,4,contextInput.value.trim());
+  if(!guestEditor.classList.contains('visible'))generateDraftGuests(topic,3,contextInput.value.trim());
   if(draftGuests.length<2){alert('至少需要2位嘉宾');return;}
   guestList.querySelectorAll('input[data-field]').forEach(inp=>{const i=parseInt(inp.dataset.i),f=inp.dataset.field;if(draftGuests[i])draftGuests[i][f]=inp.value;});
-  const useAI=!!(apiUrl.value.trim()&&apiKey.value.trim());
-  if(useAI)saveAPIConfig();
-  setupScreen.style.display='none';meetingScreen.style.display='flex';topicTag.textContent=topic;
-  aiTag.className=`ai-tag ${useAI?'on':'off'}`;aiTag.textContent=useAI?'🤖 AI':'📝 本地';
-  state={topic,context:contextInput.value.trim(),participants:draftGuests.map((g,i)=>({...g,id:i,color:COLORS[i%COLORS.length]})),userMessages:[],messages:[],isRunning:true,isPaused:false,currentSpeaker:null,discussionRound:0,skipRequested:false,useAI,apiConfig:{url:apiUrl.value.trim(),key:apiKey.value.trim(),model:apiModel.value.trim()}};
-  addSys('🪑 圆桌会议开始！');
-  addSys(`🎯 嘉宾入座：${state.participants.map(p=>p.name+'（'+p.title+'）').join('、')}`);
-  addSys(useAI?'💡 AI 驱动模式 — 讨论将更有深度和互动性':'💡 本地模式 — 建议接入 API 获得更好体验 | 输入框随时插话');
-  setStatus('running','讨论中');renderSeats();startDiscussion();
+  const{url,key}=getAPIConfig();const useAI=!!(url&&key);
+  $('setup-screen').style.display='none';$('meeting-screen').style.display='flex';topicTag.textContent=topic;
+  aiTag.className='ai-tag '+(useAI?'on':'off');aiTag.textContent=useAI?'🤖 AI':'📝 本地';
+  state={topic,context:contextInput.value.trim(),participants:draftGuests.map((g,i)=>({...g,id:i,color:COLORS[i%COLORS.length]})),userMessages:[],messages:[],isRunning:true,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,roundNumber:0,guidingQuestion:'',deepening:false};
+  speakCount={};state.participants.forEach(p=>speakCount[p.id]=0);
+  setStatus('running','讨论中');updateButtons();renderSeats();
+  await moderatorOpen(topic);
+  startDiscussion();
 }
 
-// ===== DISCUSSION =====
+// ===== MODERATOR =====
+async function moderatorOpen(topic){
+  const concept=topic.replace(/[？?！!。.]/g,'').slice(0,15);
+  if(state.useAI){try{const r=await callLLM([{role:'system',content:'你是圆桌讨论主持人。理性、冷静、洞察力极强。\n议题：「'+topic+'」\n嘉宾：'+state.participants.map(p=>p.name+'（'+p.stance+'）').join('、')+'\n\n请用2-3句话：\n1. 宣布讨论开始，点出核心议题\n2. 提出第一个引导问题：请各位先定义核心概念「'+concept+'」\n要求简洁有力，口语化。'},{role:'user',content:'请开始主持。'}]);addModeratorMsg(r);}catch(e){addModeratorMsg(moderatorOpenLocal(topic));}}
+  else{addModeratorMsg(moderatorOpenLocal(topic));}
+  state.guidingQuestion='我们应当如何定义「'+concept+'」？核心要素是什么？';
+  addGuidingQ(state.guidingQuestion);
+}
+
+function moderatorOpenLocal(topic){return '本次圆桌对话正式开始。核心议题为「'+topic+'」。为穷尽其理，我们首先需要对核心概念达成共识——';}
+
+async function moderatorSynthesize(){
+  if(state.summarizing)return;state.summarizing=true;setStatus('synthesizing','主持人综述…');
+  const allMsgs=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').map(m=>m.name+'：'+m.text).join('\n');
+  if(state.useAI){try{const r=await callLLM([{role:'system',content:'你是圆桌讨论主持人。理性冷静，洞察力极强。\n\n讨论主题：'+state.topic+'\n当前引导问题：'+state.guidingQuestion+'\n\n讨论记录：\n'+allMsgs+'\n\n请完成以下任务（严格按格式）：\n\n## 综述\n2-3句话总结本轮讨论的核心争议点，指出最大分歧。\n\n## 思维框架\n用简洁的ASCII图表展示核心矛盾结构，格式示例：\n```\n         [核心议题]\n          /        \\\n    [立场A]      [立场B]\n      |              |\n  [论据1]        [论据2]\n      \\\\              /\n       [核心矛盾: XXX]\n```\n\n## 追问\n基于核心矛盾，提出一个更深层的问题（1句话），引导讨论进入更深处。\n\n注意：综述精准不废话；ASCII图表用纯文本符号；追问要切中要害。'},{role:'user',content:'请综述。'}]);addModeratorMsg(r);}catch(e){addModeratorMsg(synthesizeLocal());}}else{addModeratorMsg(synthesizeLocal());}
+  state.speechesSinceSynthesis=0;state.roundNumber++;state.summarizing=false;
+  if(state.isRunning&&!state.isEnded)setStatus('running','讨论中');updateButtons();
+}
+
+function synthesizeLocal(){
+  const ps=state.participants;const a=ps[0]||{name:'A',stance:'观点A'};const b=ps[1]||{name:'B',stance:'观点B'};
+  return '## 综述\n核心争议在于各方对本质的理解存在根本分歧。\n\n## 思维框架\n```\n         ['+state.topic.slice(0,10)+']\n          /        \\\n    ['+a.name+']      ['+b.name+']\n      |              |\n  ['+a.stance.slice(0,6)+']  ['+b.stance.slice(0,6)+']\n      \\\\              /\n       [核心矛盾]\n```\n\n## 追问\n这个矛盾背后，是否有一个更基本的前提未被触及？';
+}
+
+function addGuidingQ(q){const d=document.createElement('div');d.className='guiding-q';d.innerHTML='🎯 主持人追问：'+escH(q);chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;}
+
+// ===== DISCUSSION ENGINE =====
 let discRun=false;
-async function startDiscussion(){if(discRun)return;discRun=true;state.discussionRound=0;await runRound('opening');}
-async function runRound(phase){
-  if(!state.isRunning){discRun=false;return;}await waitP();if(!state.isRunning){discRun=false;return;}
-  state.discussionRound++;const order=getOrder();
-  for(const pid of order){if(!state.isRunning){discRun=false;return;}await waitP();if(!state.isRunning){discRun=false;return;}state.skipRequested=false;await speak(pid,phase);if(state.isRunning&&!state.skipRequested)await sleep(800+Math.random()*600);}
-  if(state.isRunning){let np=phase;if(phase==='opening'&&state.discussionRound>=1)np='debate';if(phase==='debate'&&state.discussionRound>=5)np='deepening';addSys(`—— 第${state.discussionRound+1}轮 ——`);await sleep(600);if(state.isRunning)await runRound(np);}discRun=false;
-}
-function getOrder(){const ids=state.participants.map(p=>p.id);for(let i=ids.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ids[i],ids[j]]=[ids[j],ids[i]];}return ids;}
 
-async function speak(pid,phase){
-  const p=state.participants[pid];if(!p)return;
-  state.currentSpeaker=pid;hlSeat(pid,'thinking');
-  let msg;
-  try{
-    msg = state.useAI ? await genSpeechAI(p,phase) : genSpeechLocal(p,phase);
-  }catch(e){
-    msg=genSpeechLocal(p,phase); // fallback
-    if(state.useAI) console.warn('AI fallback:',e);
+function pickNextSpeaker(excludeId){const ps=state.participants;if(ps.length<=1)return ps[0];const last=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你').slice(-1)[0]||null;const weights=ps.map(p=>{if(p.id===excludeId)return 0;let w=1;const cnt=speakCount[p.id]||0;const mx=Math.max(1,...Object.values(speakCount));w+=Math.max(0,(mx-cnt))*2;if(last&&last.name!==p.name)w+=1+Math.random()*3;w+=Math.random()*2;return w;});const total=weights.reduce((a,b)=>a+b,0);if(total===0)return ps[Math.floor(Math.random()*ps.length)];let r=Math.random()*total;for(let i=0;i<weights.length;i++){r-=weights[i];if(r<=0)return ps[i];}return ps[ps.length-1];}
+
+async function startDiscussion(){if(discRun)return;discRun=true;const first=state.participants[Math.floor(Math.random()*state.participants.length)];await doSpeak(first.id);discussionLoop();}
+
+async function discussionLoop(){
+  while(state.isRunning&&!state.isEnded){
+    if(state.isPaused){await waitP();if(!state.isRunning||state.isEnded)break;}
+    if(state.speechesSinceSynthesis>=SYNTH_EVERY&&!state.deepening){await moderatorSynthesize();if(!state.isRunning||state.isEnded)break;}
+    const gap=1200+Math.random()*1500;await sleep(gap);
+    if(!state.isRunning||state.isEnded)break;
+    if(state.isPaused)continue;
+    if(state.speakingLock){await sleep(300);continue;}
+    const next=pickNextSpeaker(state.currentSpeaker);await doSpeak(next.id);
   }
-  if(!state.isRunning||state.skipRequested){hlSeat(pid,null);state.currentSpeaker=null;return;}
-  hlSeat(pid,'speaking');addMsg(p,msg);updBubble(pid,msg);
-  const dur=Math.min(msg.length*50,5000);await sleep(Math.max(dur,1500));
-  hlSeat(pid,null);state.currentSpeaker=null;
+  discRun=false;
+}
+
+async function doSpeak(pid){
+  if(state.speakingLock)return;state.speakingLock=true;
+  const p=state.participants[pid];if(!p){state.speakingLock=false;return;}
+  state.currentSpeaker=pid;hlSeat(pid,'thinking');
+  let msg,action='陈述',tldr='';
+  try{if(state.useAI){const r=await genSpeechAI(p);msg=r.msg;action=r.action;tldr=r.tldr;}else{const r=genSpeechLocal(p);msg=r.msg;action=r.action;tldr=r.tldr;}}
+  catch(e){const r=genSpeechLocal(p);msg=r.msg;action=r.action;tldr=r.tldr;if(state.useAI)addSys('⚠️ AI请求失败: '+e.message.slice(0,60));}
+  if(!state.isRunning||state.isEnded||state.skipRequested){hlSeat(pid,null);state.currentSpeaker=null;state.skipRequested=false;state.speakingLock=false;return;}
+  hlSeat(pid,'speaking');speakCount[pid]=(speakCount[pid]||0)+1;state.speechesSinceSynthesis++;
+  addGuestMsg(p,action,msg,tldr);updBubble(pid,msg);
+  await sleep(Math.min(msg.length*50,4000,1500));
+  hlSeat(pid,null);state.currentSpeaker=null;state.speakingLock=false;
 }
 
 // ===== AI SPEECH =====
-async function genSpeechAI(p,phase){
-  const hist=state.messages.slice(-16).map(m=>({role:m.name==='你'?'user':'assistant',content:`${m.name}：${m.text}`})).filter(m=>m.content.length>5);
+async function genSpeechAI(p){
+  const hist=state.messages.filter(m=>m.name!=='系统').slice(-16).map(m=>({role:m.name==='你'?'user':'assistant',content:m.name+'：'+m.text}));
   const lastUserMsg=state.userMessages.length>0?state.userMessages[state.userMessages.length-1]:null;
-  const otherParticipants=state.participants.filter(x=>x.id!==p.id).map(x=>x.name+'（'+x.title+'）').join('、');
+  const others=state.participants.filter(x=>x.id!==p.id).map(x=>x.name+'（立场：'+x.stance+'）').join('\n');
+  const lastSpeaker=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你').slice(-1)[0]||null;
+  const sys='你正在参加一场以「求真」为目标的圆桌深度对话。\n\n主题：'+state.topic+'\n'+(state.context?'背景：'+state.context+'\n':'')+'当前主持人引导的问题：'+(state.guidingQuestion||'自由讨论')+'\n\n你的角色：'+p.name+'，'+(p.title||'嘉宾')+'\n你的立场：'+p.stance+'\n你的性格：'+p.personality+'\n'+(p.catchphrase?'口头禅：'+p.catchphrase+'\n':'')+'\n其他参会者：\n'+others+'\n\n'+(lastSpeaker&&lastSpeaker.name!==p.name?'刚刚 '+lastSpeaker.name+' 说了："'+lastSpeaker.text.slice(0,80)+'"':'')+'\n\n⚠️ 核心规则：\n- 你必须有独立的观点！立场"'+p.stance+'"是底线，坚定捍卫\n- 如果前人观点与你不同，必须反驳或质疑\n- 选择一个行动标签：【反驳】【质疑】【补充】【支持】【追问】【陈述】\n- 口语化，2-4句话，简洁有力\n- 体现性格：'+p.personality+'\n\n严格按以下格式输出：\n【行动标签】发言内容\n\n简言之：一句话核心论点';
 
-  const systemPrompt=`你正在参加一场圆桌讨论。
-
-主题：${state.topic}
-${state.context?'背景：'+state.context:''}
-
-你的角色：${p.name}，${p.title}
-立场：${p.stance}
-性格：${p.personality}
-${p.catchphrase?'口头禅/名言：'+p.catchphrase:''}
-${p.keywords?'你经常谈论的话题关键词：'+p.keywords.join('、'):'']
-
-其他参会者：${otherParticipants}，以及主持人（可以随时插话）
-
-当前讨论阶段：${phase==='opening'?'开场陈述（表明自己的核心观点）':phase==='debate'?'自由辩论（回应他人、展开论证）':'深入探讨（挖掘深层矛盾、寻求共识）'}
-
-规则：
-- 用第一人称发言，口语化，自然，有个性
-- 2-5句话，不要太长
-- 必须回应前面的发言或提出新角度，不要自说自话
-- 如果有人说了有趣的观点，可以赞同或反驳
-- 体现你的性格和立场，但不要机械地复读立场
-- ${p.catchphrase?'可以在合适的时候自然地说出你的口头禅，但不要每次都说。':'不要重复使用相同的句式。'}
-- 直接输出发言内容，不要加名字前缀`;
-
-  const messages=[{role:'system',content:systemPrompt},...hist];
-
-  // If user recently spoke, add emphasis
-  if(lastUserMsg){
-    messages.push({role:'user',content:`主持人插话：${lastUserMsg}\n请回应主持人的话。`});
-  }
-
-  const result=await callLLM(messages);
-  return result||genSpeechLocal(p,phase);
+  const messages=[{role:'system',content:sys},...hist];
+  if(lastUserMsg)messages.push({role:'user',content:'主持人/听众提问：'+lastUserMsg+'\n请从你的立场回应。'});
+  const raw=await callLLM(messages);return parseAIResponse(raw);
 }
 
-// ===== LOCAL FALLBACK =====
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
-function genSpeechLocal(p,phase){
-  const hist=state.messages.slice(-10),last=hist.length>0?hist[hist.length-1]:null;
-  const uMsgs=state.userMessages,topic=state.topic;
-  const famous=!!p.catchphrase;
-  const useCatch=p.catchphrase&&Math.random()<0.2;
-  const kw=p.keywords||[];
-  const topicWord=kw.length?pick(kw):'这个问题';
+function parseAIResponse(raw){let action='陈述',msg=raw,tldr='';const am=raw.match(/[【\[]?(反驳|质疑|补充|支持|追问|陈述)[】\]]?/);if(am){action=am[1];msg=raw.replace(/[【\[]?(反驳|质疑|补充|支持|追问|陈述)[】\]]?\s*/,'');}const tm=msg.match(/简言之[：:]\s*(.+)/);if(tm){tldr=tm[1].trim();msg=msg.replace(/简言之[：:]\s*.+/,'');}if(!tldr)tldr=msg.replace(/\n/g,' ').slice(0,35)+(msg.length>35?'…':'');return{msg:msg.trim(),action,tldr};}
 
-  if(uMsgs.length>0&&Math.random()>0.25){const lu=uMsgs[uMsgs.length-1];return pick([`感谢主持人的观点。${p.stance}——我一直坚信这一点。${useCatch?p.catchphrase:''}`,`让我从我${p.title}的角度回应。${p.stance}。${famous?'这有深刻的道理。':'我深有感触。'}`,`这个角度引发了我的思考。${p.stance}。关于${topicWord}，道理其实很简单。`]);}
-  if(phase==='opening'){return pick([`${p.stance}。这就是我的核心观点。${useCatch?p.catchphrase:'关于'+topic+'，让我展开说明。'}`,`各位好。先亮明看法——${p.stance}。${useCatch?p.catchphrase:'我的立场一直没变。'}`,`关于"${topic}"，${p.stance}。${useCatch?p.catchphrase:''}接下来我会详细阐述。`]);}
-  if(phase==='debate'){
-    if(last&&last.name!==p.name&&last.name!=='系统'&&last.name!=='你'){return pick([`${last.name}说得有道理，但我想从${topicWord}的角度补充——${p.stance}。${useCatch?p.catchphrase:''}`,`我忍不住回应一下。${p.stance}。很多人忽视了${topicWord}的重要性。`,`${last.name}刚才让我想到一点：${p.stance}。${useCatch?p.catchphrase:''}`,`从${p.title}的视角看：${p.stance}。道理不复杂，但执行很难。`]);}
-    return pick([`让我拉回核心——${p.stance}。${topicWord}是被忽视的关键。${useCatch?p.catchphrase:''}`,`如果我们从${topicWord}切入，结论会不同吗？${p.stance}。`]);
-  }
-  return pick([`讨论到这里我想总结——${p.stance}。这是我的坚持。${useCatch?p.catchphrase:''}`,`根源在${topicWord}。${p.stance}。不管别人怎么看。`,`我愿意在方法上妥协，但${topicWord}上不动摇。${p.stance}。${useCatch?p.catchphrase:''}`]);
+// ===== LOCAL FALLBACK =====
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+function genSpeechLocal(p){
+  const h=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持'&&m.name!=='你');
+  const last=h.length>0?h[h.length-1]:null;const u=state.userMessages;
+  const tw=(p.keywords&&p.keywords.length)?pick(p.keywords):'这件事';
+  const uc=p.catchphrase&&Math.random()<0.2;const isFirst=(speakCount[p.id]||0)<1;
+  let action='陈述',msg='',tldr=p.stance.slice(0,30);
+  if(u.length>0&&Math.random()>0.3){action=pick(['反驳','追问','补充']);msg=pick(['回应主持人。'+p.stance+(uc?' '+p.catchphrase:''),'从我的角度，'+p.stance+'。关于'+tw+'，这才是核心。','我的立场不变——'+p.stance+'。']);}
+  else if(isFirst||!last){action='陈述';msg=pick(['我的立场很明确——'+p.stance+(uc?' '+p.catchphrase:''),'关于"'+state.topic+'"，'+p.stance+'。',p.stance+'。这是我的底线。']);}
+  else if(last&&last.name!==p.name){if(Math.random()>0.3){action=pick(['反驳','质疑']);msg=pick(['我得反驳'+last.name+'。'+p.stance+'。'+tw+'的本质不是那样。',last.name+'的观点我不能认同。'+p.stance+'——这才是关键。','恰恰相反！'+p.st+'。'+(uc?p.catchphrase:''),'等等，'+last.name+'，从'+tw+'来看，'+p.stance+'。']);}else{action=pick(['补充','支持']);msg=pick([last.name+'说得有道理，但我要补充——'+tw+'层面，'+p.stance+'。','顺着'+last.name+'的思路推进一步。'+p.stance+'。']);}}
+  else{action='陈述';msg='回到'+tw+'——'+p.stance+(uc?' '+p.catchphrase:'');}
+  return{msg,action,tldr};
 }
 
 // ===== USER INPUT =====
 function handleUserInput(){
-  const text=userInput.value.trim();if(!text)return;
-  state.userMessages.push(text);addMsg({name:'你',color:'var(--cyan)',emoji:'🎤',isUser:true},text);
-  if(state.currentSpeaker!==null)hlSeat(state.currentSpeaker,'thinking');
+  const text=userInput.value.trim();if(!text||state.isEnded)return;
+  if(text==='可'||text==='继续'||text==='推进'){userInput.value='';state.isPaused=false;setStatus('running','讨论中');updateButtons();return;}
+  if(text==='止'||text==='暂停'||text==='停'){userInput.value='';state.isPaused=true;setStatus('paused','已暂停');updateButtons();return;}
+  if(text==='深入'){userInput.value='';deepenBtn.click();return;}
+  state.userMessages.push(text);addUserMsg(text);
   userInput.value='';userInput.style.height='auto';
-  setTimeout(async()=>{if(!state.isRunning)return;const r=state.participants[Math.floor(Math.random()*state.participants.length)];if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}await speak(r.id,'debate');},1200);
+  state.skipRequested=true;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}
+  setTimeout(async()=>{if(!state.isRunning||state.isEnded)return;const r=pickNextSpeaker(null);await doSpeak(r.id);},600);
 }
 sendBtn.addEventListener('click',handleUserInput);
 userInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleUserInput();}});
 userInput.addEventListener('input',()=>{userInput.style.height='auto';userInput.style.height=Math.min(userInput.scrollHeight,120)+'px';});
 
 // ===== CONTROLS =====
-playBtn.addEventListener('click',()=>{if(!state.isRunning)return;state.isPaused=false;setStatus('running','讨论中');});
-pauseBtn.addEventListener('click',()=>{state.isPaused=true;setStatus('paused','已暂停');});
-nextBtn.addEventListener('click',()=>{state.skipRequested=true;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}});
+playBtn.addEventListener('click',()=>{if(state.isEnded)return;state.isPaused=false;state.deepening=false;setStatus('running','讨论中');updateButtons();});
+pauseBtn.addEventListener('click',()=>{if(state.isEnded)return;state.isPaused=true;setStatus('paused','已暂停');updateButtons();});
+deepenBtn.addEventListener('click',async()=>{if(state.isEnded||!state.isRunning)return;state.deepening=true;await moderatorSynthesize();state.deepening=false;});
 summarizeBtn.addEventListener('click',async()=>{
-  if(!state.messages.length)return;state.isPaused=true;setStatus('paused','已暂停');
-  let summary;
-  if(state.useAI){try{summary=await genSummaryAI();}catch(e){summary=genSummaryLocal();}}else{summary=genSummaryLocal();}
-  addSys('📋 **会议总结**\n'+summary);
+  const msgs=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持');if(!msgs.length)return;if(state.summarizing)return;
+  state.summarizing=true;summarizeBtn.disabled=true;summarizeBtn.textContent='⏳ 生成中…';
+  const wasRunning=state.isRunning&&!state.isPaused&&!state.isEnded;
+  if(wasRunning){state.isPaused=true;setStatus('synthesizing','生成总结…');}
+  addSys('⏳ 正在生成最终知识网络…');
+  let s;if(state.useAI){try{s=await genFinalSummary();}catch(e){s=genFinalSummaryLocal();}}else s=genFinalSummaryLocal();
+  addModeratorMsg(s);state.summarizing=false;summarizeBtn.disabled=false;summarizeBtn.textContent='📋 总结';
+  if(wasRunning){state.isPaused=false;setStatus('running','讨论中');}updateButtons();chatMessages.scrollTop=chatMessages.scrollHeight;
 });
-endBtn.addEventListener('click',()=>{state.isRunning=false;state.isPaused=false;discRun=false;addSys('⏹ 会议已结束');setStatus('idle','已结束');});
-backBtn.addEventListener('click',()=>{state.isRunning=false;state.isPaused=false;discRun=false;meetingScreen.style.display='none';setupScreen.style.display='flex';chatMessages.innerHTML='';msgCount.textContent='0 条发言';draftGuests=state.participants.map(p=>({...p}));renderGuestEditor();renderFamousButtons();});
+endBtn.addEventListener('click',()=>{if(state.isEnded)return;state.isRunning=false;state.isPaused=false;state.isEnded=true;discRun=false;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}addSys('⏹ 研讨已结束 — 点击「📋 总结」生成知识网络');setStatus('ended','已结束');updateButtons();});
+backBtn.addEventListener('click',()=>{state.isRunning=false;state.isPaused=false;state.isEnded=false;discRun=false;if(state.currentSpeaker!==null){hlSeat(state.currentSpeaker,null);state.currentSpeaker=null;}$('meeting-screen').style.display='none';$('setup-screen').style.display='flex';chatMessages.innerHTML='';msgCount.textContent='0 条发言';draftGuests=state.participants.map(p=>({...p}));renderGuestEditor();renderFamousButtons();});
 
-async function genSummaryAI(){
-  const msgs=state.messages.filter(m=>m.name!=='系统').map(m=>`${m.name}：${m.text}`).join('\n');
-  const r=await callLLM([{role:'system',content:'你是一个会议总结助手。用中文简洁地总结以下圆桌讨论，包括：1.各方核心立场 2.主要分歧 3.可能的共识 4.未解决的问题。用要点列出。'},{role:'user',content:msgs}]);
-  return r||genSummaryLocal();
-}
-function genSummaryLocal(){
-  const ps=state.participants,msgs=state.messages.filter(m=>m.name!=='系统');
-  return[`📌 主题：${state.topic}`,`👥 参与者：${ps.map(p=>p.name).join('、')}`,`💬 共${msgs.length}条发言`,'','🎯 各方立场：',...ps.map(p=>`  • ${p.name}（${p.title}）：${p.stance}`),'','📝 讨论覆盖多元视角（接入AI可获得更深入总结）'].join('\n');
-}
+async function genFinalSummary(){const msgs=state.messages.filter(m=>m.name!=='系统').map(m=>m.name+'：'+m.text).join('\n');return await callLLM([{role:'system',content:'生成最终研讨总结，包含：\n1. 核心议题回顾\n2. 各方立场与关键论据\n3. 最大分歧点\n4. 可能的共识\n5. 未解决的问题\n6. 知识网络可视化（ASCII图）\n\n简洁有力，要点格式。'},{role:'user',content:msgs}]);}
+function genFinalSummaryLocal(){const ps=state.participants.map(p=>'• '+p.name+'（'+p.stance+'）').join('\n');const cnt=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length;return '📌 主题：'+state.topic+'\n💬 共 '+cnt+' 条发言\n\n🎯 各方立场：\n'+ps;}
 
 // ===== HELPERS =====
-function waitP(){return new Promise(r=>{const c=setInterval(()=>{if(!state.isPaused||!state.isRunning){clearInterval(c);r();}},200);});}
+function waitP(){return new Promise(r=>{const c=setInterval(()=>{if(!state.isPaused||!state.isRunning||state.isEnded){clearInterval(c);r();}},200);});}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
-function setStatus(t,x){statusBadge.className=`status-badge ${t}`;statusBadge.innerHTML=`<span class="status-dot"></span>${x}`;}
+function setStatus(t,x){statusBadge.className='status-badge '+t;statusBadge.innerHTML='<span class="status-dot"></span>'+x;}
+
 function renderSeats(){
   roundtable.querySelectorAll('.seat').forEach(s=>s.remove());
-  const total=state.participants.length+1,cx=250,cy=250,radius=Math.max(140,190-(total-4)*10);
-  state.participants.forEach((p,i)=>{
-    const a=(2*Math.PI*(i+1)/total)-Math.PI/2,x=cx+radius*Math.cos(a)-35,y=cy+radius*Math.sin(a)-35;
-    const s=document.createElement('div');s.className='seat';s.id=`seat-${i}`;s.style.left=x+'px';s.style.top=y+'px';
-    s.innerHTML=`<div class="avatar" style="background:${p.color}22;color:${p.color}">${p.emoji}</div><span class="seat-name">${p.name}</span><div class="speech-bubble" id="bubble-${i}"></div>`;
-    s.title=`${p.name} - ${p.title}\n立场: ${p.stance}${p.catchphrase?'\n名言: '+p.catchphrase:''}`;
-    roundtable.appendChild(s);
-  });
-  const ua=-Math.PI/2,ux=cx+radius*Math.cos(ua)-35,uy=cy+radius*Math.sin(ua)-35;
+  const total=state.participants.length+2,cx=250,cy=250,radius=Math.max(140,190-(total-4)*10);
+  const ma=-Math.PI/2,mx=cx+radius*Math.cos(ma)-35,my=cy+radius*Math.sin(ma)-35;
+  const ms=document.createElement('div');ms.className='seat moderator-seat';ms.id='seat-mod';ms.style.left=mx+'px';ms.style.top=my+'px';
+  ms.innerHTML='<div class="avatar" style="background:rgba(253,203,110,0.15);color:var(--moderator)">⚖️</div><span class="seat-name">主持</span>';roundtable.appendChild(ms);
+  state.participants.forEach((p,i)=>{const a=(2*Math.PI*(i+1.5)/total)-Math.PI/2,x=cx+radius*Math.cos(a)-35,y=cy+radius*Math.sin(a)-35;const s=document.createElement('div');s.className='seat';s.id='seat-'+i;s.style.left=x+'px';s.style.top=y+'px';s.innerHTML='<div class="avatar" style="background:'+p.color+'22;color:'+p.color+'">'+p.emoji+'</div><span class="seat-name">'+p.name+'</span><div class="speech-bubble" id="bubble-'+i+'"></div>';s.title=p.name+' - '+(p.title||'')+'\n'+p.stance;roundtable.appendChild(s);});
+  const ua=0,ux=cx+radius*Math.cos(ua)-35,uy=cy+radius*Math.sin(ua)-35;
   const us=document.createElement('div');us.className='seat user-seat';us.id='seat-user';us.style.left=ux+'px';us.style.top=uy+'px';
-  us.innerHTML=`<div class="avatar" style="background:rgba(0,206,201,0.15);color:var(--cyan)">🎤</div><span class="seat-name">你</span>`;
-  roundtable.appendChild(us);
+  us.innerHTML='<div class="avatar" style="background:rgba(0,206,201,0.15);color:var(--cyan)">🎤</div><span class="seat-name">你</span>';roundtable.appendChild(us);
 }
-function hlSeat(id,cls){const s=document.getElementById(`seat-${id}`);if(!s)return;s.classList.remove('speaking','thinking');if(cls)s.classList.add(cls);if(cls!=='speaking'){const b=document.getElementById(`bubble-${id}`);if(b)b.textContent='';}}
-function updBubble(id,text){const b=document.getElementById(`bubble-${id}`);if(b)b.textContent=text.length>50?text.slice(0,50)+'…':text;}
-function addMsg(who,text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});state.messages.push({name:who.name,text,time:t});const d=document.createElement('div');d.className=`msg ${who.isUser?'user-msg':''}`;d.innerHTML=`<div class="msg-avatar" style="background:${who.color}22;color:${who.color}">${who.emoji}</div><div class="msg-body"><div class="msg-name" style="color:${who.color}">${who.name}</div><div class="msg-text">${escH(text)}</div><div class="msg-time">${t}</div></div>`;chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;msgCount.textContent=`${state.messages.length} 条发言`;}
-function addSys(text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});const d=document.createElement('div');d.className='msg system-msg';d.innerHTML=`<div class="msg-avatar">⚙️</div><div class="msg-body"><div class="msg-text">${text}</div><div class="msg-time">${t}</div></div>`;chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;}
+
+function hlSeat(id,cls){const s=document.getElementById('seat-'+id);if(!s)return;s.classList.remove('speaking','thinking');if(cls)s.classList.add(cls);if(cls!=='speaking'){const b=document.getElementById('bubble-'+id);if(b)b.textContent='';}}
+function updBubble(id,text){const b=document.getElementById('bubble-'+id);if(b)b.textContent=text.length>50?text.slice(0,50)+'…':text;}
 function escH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+
+function addUserMsg(text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});state.messages.push({name:'你',text,time:t});const d=document.createElement('div');d.className='msg user-msg';d.innerHTML='<div class="msg-avatar" style="background:rgba(0,206,201,0.15);color:var(--cyan)">🎤</div><div class="msg-body"><div class="msg-header"><div class="msg-name" style="color:var(--cyan)">你</div></div><div class="msg-text">'+escH(text)+'</div><div class="msg-time">'+t+'</div></div>';chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;msgCount.textContent=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length+' 条';}
+
+function addGuestMsg(p,action,text,tldr){
+  const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+  state.messages.push({name:p.name,text,time:t,action});
+  const d=document.createElement('div');d.className='msg';
+  let hdr='<div class="msg-name" style="color:'+p.color+'">'+p.name+'·'+(p.title||'')+'</div>';
+  if(action)hdr+='<span class="msg-action a-'+action+'">'+action+'</span>';
+  let body='<div class="msg-text">'+escH(text)+'</div>';
+  if(tldr)body+='<div class="msg-tldr">💬 简言之：'+escH(tldr)+'</div>';
+  body+='<div class="msg-time">'+t+'</div>';
+  d.innerHTML='<div class="msg-avatar" style="background:'+p.color+'22;color:'+p.color+'">'+p.emoji+'</div><div class="msg-body"><div class="msg-header">'+hdr+'</div>'+body+'</div>';
+  chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;
+  msgCount.textContent=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length+' 条';
+}
+
+function addModeratorMsg(text){
+  const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});
+  state.messages.push({name:'主持',text,time:t});
+  const d=document.createElement('div');d.className='msg moderator-msg';
+  let html=escH(text);
+  html=html.replace(/^## (.+)$/gm,'<div style="font-weight:700;font-size:0.9rem;color:var(--moderator);margin:0.6rem 0 0.3rem">$1</div>');
+  html=html.replace(/```([\s\S]*?)```/g,(m,code)=>'<div class="ascii-chart">'+code.trim()+'</div>');
+  html=html.replace(/追问[：:]\s*(.+)/g,'<div class="guiding-q">🎯 追问：$1</div>');
+  d.innerHTML='<div class="msg-avatar" style="background:rgba(253,203,110,0.15);color:var(--moderator)">⚖️</div><div class="msg-body"><div class="msg-header"><div class="msg-name" style="color:var(--moderator)">⚖️ 主持人</div></div><div class="msg-text">'+html+'</div><div class="msg-time">'+t+'</div></div>';
+  chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;
+  const qm=text.match(/追问[：:]\s*(.+)/);if(qm)state.guidingQuestion=qm[1].trim();
+  msgCount.textContent=state.messages.filter(m=>m.name!=='系统'&&m.name!=='主持').length+' 条';
+}
+
+function addSys(text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});const d=document.createElement('div');d.className='msg system-msg';d.innerHTML='<div class="msg-avatar">⚙️</div><div class="msg-body"><div class="msg-text">'+text+'</div><div class="msg-time">'+t+'</div></div>';chatMessages.appendChild(d);chatMessages.scrollTop=chatMessages.scrollHeight;}
+
+// ===== AUTO-TEST =====
+setTimeout(async()=>{try{const r=await fetchWithTimeout(DEFAULT_API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+DEFAULT_API_KEY},body:JSON.stringify({model:DEFAULT_API_MODEL,messages:[{role:'user',content:'hi'}],max_tokens:5})},API_TIMEOUT);apiStatus.textContent=r.ok?'✅ 内置API可用':'⚠️ API异常，请换Key';apiStatus.className=r.ok?'api-status ok':'api-status err';}catch(e){apiStatus.textContent='⚠️ 网络无法连接';apiStatus.className='api-status err';}},1000);
 </script>
 </body>
 </html>
