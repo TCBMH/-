@@ -186,12 +186,12 @@
     <input type="text" id="topic-input" placeholder="例如：开餐饮店选址和经营的关键决策" />
     <label>快速预设</label>
     <div class="presets">
-      <button class="preset-btn" data-topic="开餐饮店选址和经营的关键决策" data-hint="餐饮行业：海底捞张勇vs巴奴杜中兵vs新荣记张勇vs米其林名厨Bottura/Redzepi，以及潮上潮/京兆尹/屋里厢等北京米其林主厨">🍜 开餐饮店</button>
-      <button class="preset-btn" data-topic="做产品应该追求极致还是先跑通商业模式？" data-hint="产品与创新：喜茶聂云宸、新荣记张勇等探讨产品主义与匠心">🎯 产品 vs 商业</button>
-      <button class="preset-btn" data-topic="创业公司应该追求快速增长还是可持续盈利？" data-hint="创业者与投资人对决：稻盛和夫、段永平、巴菲特等论增长与盈利">🚀 增长 vs 盈利</button>
-      <button class="preset-btn" data-topic="AI会颠覆哪些行业？普通人如何应对？" data-hint="科技前沿：任正非、张一鸣、马云等论AI与行业颠覆">🤖 AI颠覆行业</button>
-      <button class="preset-btn" data-topic="餐饮行业的标准化与匠心如何平衡？" data-hint="餐饮深度碰撞：新荣记张勇vs海底捞张勇，匠心与规模的博弈">⚖️ 标准化 vs 匠心</button>
-      <button class="preset-btn" data-topic="中国品牌出海的关键挑战和策略" data-hint="品牌出海：星巴克Howard Schultz、西贝贾国龙等论全球扩张">🌍 品牌出海</button>
+      <button class="preset-btn" data-topic="西餐厅如何打造让客人反复复购的用餐体验？" data-hint="西餐|体验|复购|餐厅|经营">🍽️ 西餐厅经营</button>
+      <button class="preset-btn" data-topic="餐饮的标准化与匠心如何平衡？" data-hint="标准化|匠心|品质|规模">⚖️ 标准化 vs 匠心</button>
+      <button class="preset-btn" data-topic="如何用感官设计提升餐厅的客单价和满意度？" data-hint="感官|心理|体验|消费|客单价">🧠 感官与消费心理</button>
+      <button class="preset-btn" data-topic="米其林小而美餐厅与大规模连锁，谁更有未来？" data-hint="米其林|连锁|精致|规模|小而美">🌟 小而美 vs 大连锁</button>
+      <button class="preset-btn" data-topic="餐饮品牌如何从0到1再到100？" data-hint="品牌|扩张|增长|连锁|从零到一">🚀 品牌增长</button>
+      <button class="preset-btn" data-topic="顾客选择餐厅时真正在选什么？" data-hint="消费心理|决策|选择|行为|社会">🛒 消费者决策</button>
     </div>
     <label>补充说明（可选）</label>
     <textarea id="context-input" placeholder="背景信息、你想了解的具体方面、行业偏好…"></textarea>
@@ -201,7 +201,8 @@
       <input type="text" id="api-url" value="" placeholder="API 地址（如 https://api.deepseek.com/v1/chat/completions）" />
       <input type="password" id="api-key" value="" placeholder="API Key" />
       <input type="text" id="api-model" value="" placeholder="模型名（如 deepseek-chat）" />
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.8rem;"><button class="gen-btn" id="preset-deepseek" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;border-color:var(--green);color:var(--green);">🟢 DeepSeek</button><button class="gen-btn" id="preset-openai" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;">🔵 OpenAI</button><button class="gen-btn" id="preset-custom" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;">⚙️ 自定义</button></div>
+      <input type="text" id="api-vision-model" value="" placeholder="视觉模型（支持图片，如 gpt-4o-mini）" style="margin-top:0.3rem" />
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.8rem;"><button class="gen-btn" id="preset-deepseek" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;border-color:var(--green);color:var(--green);">🟢 DeepSeek</button><button class="gen-btn" id="preset-openai" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;">🔵 OpenAI</button><button class="gen-btn" id="preset-custom" style="flex:none;padding:0.4rem 0.8rem;font-size:0.82rem;border-color:#a78bfa;color:#a78bfa;">🟣 AIProxy</button></div>
       <div style="display:flex;gap:0.5rem;align-items:center;">
         <button class="gen-btn" id="api-test-btn" style="flex:none;padding:0.4rem 1rem;font-size:0.85rem;">🔧 测试</button>
         <span class="api-status" id="api-status"></span>
@@ -240,12 +241,15 @@
         </div>
         <div class="input-row">
           <textarea id="user-input" placeholder="发表你的看法… (Enter 发送)" rows="1"></textarea>
+          <label class="img-upload-btn" title="发送图片">📷<input type="file" id="img-input" accept="image/*" style="display:none"></label>
           <button class="send-btn" id="send-btn">➤</button>
         </div>
-        <div class="input-hint">你是讨论参与者，不只是旁听者！直接发言触发嘉宾回应</div>
+        <div class="img-preview-wrap" id="img-preview"><img id="img-preview-img" src="" alt=""><button class="img-preview-remove" id="img-remove">×</button></div>
+        <div class="input-hint">你是讨论参与者，不只是旁听者！直接发言触发嘉宾回应 · 📷可发图</div>
       </div>
     </div>
   </div>
+  <div class="img-modal" id="img-modal" onclick="this.classList.remove('show')"><img id="img-modal-img" src="" alt=""></div>
   <div class="controls-bar">
     <button class="ctrl-btn accent" id="play-btn">▶ 推进</button>
     <button class="ctrl-btn" id="pause-btn">⏸ 暂停</button>
@@ -265,7 +269,7 @@ const USER_TURN_EVERY=6;
 const COLORS=['#6c5ce7','#00b894','#e17055','#0984e3','#fdcb6e','#fd79a8','#00cec9','#d63031','#e84393','#55a3e8'];
 const EMOJIS=['🧑‍💻','👩‍🏫','👨‍💼','🧑‍🎓','👩‍💼','👨‍⚖️','🧑‍🎨','👷','🧐','🎯','🔮','🎤','🌱','📊','⚖️','💡','📚','🎓','🔧','🧠','🤓','👨‍💻','👩‍🔬','🎩','👑','💼','🕊️','🔥','🪶','📖','🍜','☕','🛒','🏪','📊','🏦'];
 
-let state={topic:'',context:'',participants:[],userMessages:[],messages:[],isRunning:false,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI:true,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,speechesSinceUserTurn:0,roundNumber:0,guidingQuestion:'',deepening:false,coveredAngles:[],currentAngle:'',pendingUserAction:null};
+let state={topic:'',context:'',participants:[],userMessages:[],messages:[],isRunning:false,isPaused:false,isEnded:false,currentSpeaker:null,skipRequested:false,useAI:true,speakingLock:false,summarizing:false,speechesSinceSynthesis:0,speechesSinceUserTurn:0,roundNumber:0,guidingQuestion:'',deepening:false,coveredAngles:[],currentAngle:'',pendingUserAction:null,lastUserImage:null};
 let draftGuests=[];let speakCount={};
 
 const $=id=>document.getElementById(id);
@@ -282,8 +286,45 @@ async function fetchWithTimeout(u,o,ms){const c=new AbortController();const t=se
 
 apiTestBtn.addEventListener('click',async()=>{const{url,key,model}=getAPIConfig();if(!url||!key){apiStatus.textContent='请填写地址和Key';apiStatus.className='api-status err';return;}apiStatus.textContent='测试中…';apiStatus.className='api-status testing';try{let r;if(isAnthropicAPI(url)){r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model,max_tokens:20,messages:[{role:'user',content:'hi'}]})},API_TIMEOUT);}else{r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages:[{role:'user',content:'hi'}],max_tokens:5})},API_TIMEOUT);}if(r.ok){apiStatus.textContent='✅ 连接成功';apiStatus.className='api-status ok';}else{const t=await r.text().catch(()=>'');apiStatus.textContent='❌ '+r.status+' '+t.slice(0,80);apiStatus.className='api-status err';}}catch(e){apiStatus.textContent='❌ '+e.message;apiStatus.className='api-status err';}});
 
-async function callLLM(messages){const{url,key,model}=getAPIConfig();if(!url||!key)throw new Error('API未配置');if(isAnthropicAPI(url)){let sys='';const cm=messages.filter(m=>{if(m.role==='system'){sys+=m.content+'\n';return false;}return true;}).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.content}));const body={model,max_tokens:800,messages:cm,temperature:0.85};if(sys.trim())body.system=sys.trim();const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.content?.[0]?.text?.trim()||'';}else{const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model,messages,temperature:0.85,max_tokens:800})},API_TIMEOUT);if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.choices?.[0]?.message?.content?.trim()||'';}}
-
+async function callLLM(messages,imageData){
+  const{url,key,model,visionModel}=getAPIConfig();if(!url||!key)throw new Error('API未配置');
+  const useVision=!!imageData;
+  const visionModelUsed=visionModel||model;
+  const useModel=useVision?visionModelUsed:model;
+  console.log('[callLLM] model:',useModel,'hasImage:',!!imageData,'useVision:',useVision);
+  let finalMessages=messages;
+  // If image present, attach to last user message
+  if(imageData){
+    let lastUserIdx=-1;
+    for(let i=finalMessages.length-1;i>=0;i--){if(finalMessages[i].role==='user'){lastUserIdx=i;break;}}
+    if(lastUserIdx>=0){
+      const m=finalMessages[lastUserIdx];
+      if(typeof m.content==='string'){
+        if(isAnthropicAPI(url)){
+          finalMessages[lastUserIdx]={role:'user',content:[
+            {type:'image',source:{type:'base64',media_type:imageData.mediaType,data:imageData.base64}},
+            {type:'text',text:m.content}
+          ]};
+        }else{
+          finalMessages[lastUserIdx]={role:'user',content:[
+            {type:'image_url',image_url:{url:'data:'+imageData.mediaType+';base64,'+imageData.base64}},
+            {type:'text',text:m.content}
+          ]};
+        }
+      }
+    }
+    console.log('[Vision] Image attached to msg',lastUserIdx,'using model:',useModel);
+  }
+  if(isAnthropicAPI(url)){
+    let sys='';const cm=finalMessages.filter(m=>{if(m.role==='system'){sys+=m.content+'\n';return false;}return true;}).map(m=>({role:m.role==='assistant'?'assistant':'user',content:m.content}));
+    const body={model:useModel,max_tokens:800,messages:cm,temperature:0.85};if(sys.trim())body.system=sys.trim();
+    const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)},API_TIMEOUT);
+    if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.content?.[0]?.text?.trim()||'';
+  }else{
+    const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},body:JSON.stringify({model:useModel,messages:finalMessages,temperature:0.85,max_tokens:800})},API_TIMEOUT);
+    if(!r.ok){const t=await r.text().catch(()=>'');throw new Error('API '+r.status+': '+t.slice(0,150));}const d=await r.json();return d.choices?.[0]?.message?.content?.trim()||'';
+  }
+}
 const FAMOUS={
   zhangyong_hr:{name:'张勇',title:'海底捞创始人',stance:'组织和人才是根本',personality:'务实低调，直击本质',emoji:'🍲',catchphrase:'核心竞争力从来不是服务',experience:'1994年4张桌子起家做到千亿市值',keywords:['组织','员工','扩张']},
   zhangyong_xrj:{name:'张勇',title:'新荣记创始人',stance:'食必求真然后至美',personality:'低调内敛，对食材极尽偏执',emoji:'⭐',catchphrase:'食必求真然后至美',experience:'27年只开40余家店，中餐界获星最多品牌',keywords:['品质','匠心','供应链']},
@@ -684,8 +725,8 @@ ${actionInstruction}
 💡 简言之：一句话核心论点`;
 
   const messages=[{role:'system',content:sys},...hist];
-  if(lastUserMsg)messages.push({role:'user',content:'用户（会议参与者）：'+lastUserMsg});
-  const raw=await callLLM(messages);return parseAIResponse(raw);
+  if(lastUserMsg){const imgNote=state.lastUserImage?'（用户发送了一张图片，请结合图片内容讨论）':'';messages.push({role:'user',content:'用户（会议参与者）：'+lastUserMsg+imgNote});}
+  const imgCtx=state.lastUserImage||null;const raw=await callLLM(messages,imgCtx);if(imgCtx){state.lastUserImageTurns=(state.lastUserImageTurns||0)+1;if(state.lastUserImageTurns>=3){state.lastUserImage=null;state.lastUserImageTurns=0;}}return parseAIResponse(raw);
 }
 
 function parseAIResponse(raw){
@@ -735,10 +776,11 @@ function genSpeechLocal(p){
 // ===== USER INPUT (IMPROVED) =====
 function handleUserInput(actionType){
   const text=userInput.value.trim();
-  if(!text&&!actionType)return;
+  const img=pendingImage;
+  if(!text&&!img&&!actionType)return;
   if(state.isEnded)return;
-  // quick action without text
-  if(actionType&&!text){
+  // quick action without text or image
+  if(actionType&&!text&&!img){
     const actionTexts={challenge:'我对刚才的观点有不同看法——',agree:'我认同这个方向，但我想补充——',example:'能不能举一个更具体的案例？',redirect:'我觉得我们换个角度看这个问题——',ask:'我想追问一个细节——'};
     state.userMessages.push(actionTexts[actionType]||text);
     state.pendingUserAction=actionType;
@@ -749,9 +791,15 @@ function handleUserInput(actionType){
   if(text==='可'||text==='继续'||text==='推进'){userInput.value='';state.isPaused=false;setStatus('running','讨论中');updateButtons();return;}
   if(text==='止'||text==='暂停'||text==='停'){userInput.value='';state.isPaused=true;setStatus('paused','已暂停');updateButtons();return;}
   if(text==='深入'){userInput.value='';deepenBtn.click();return;}
-  state.userMessages.push(text);
+  const msgText=text||(img?'请分析这张图片':'');
+  state.userMessages.push(msgText);
   if(actionType)state.pendingUserAction=actionType;
-  addUserMsg(text);
+  addUserMsg(text||(img?'📷 图片':'💬'),img);
+  // Store image for LLM context
+  if(img){
+    state.lastUserImage={base64:img.base64,mediaType:img.mediaType};
+    pendingImage=null;imgPreview.classList.remove('has-img');imgPreviewImg.src='';userInput.placeholder='发表你的看法… (Enter 发送)';
+  }
   userInput.value='';userInput.style.height='auto';
   triggerUserResponse();
 }
@@ -781,6 +829,43 @@ document.querySelectorAll('.quick-btn').forEach(btn=>{
 sendBtn.addEventListener('click',()=>handleUserInput(null));
 userInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleUserInput(null);}});
 userInput.addEventListener('input',()=>{userInput.style.height='auto';userInput.style.height=Math.min(userInput.scrollHeight,120)+'px';});
+
+// ===== IMAGE UPLOAD =====
+let pendingImage=null; // {base64, mediaType}
+const imgInput=$('img-input'),imgPreview=$('img-preview'),imgPreviewImg=$('img-preview-img'),imgRemove=$('img-remove'),imgModal=$('img-modal'),imgModalImg=$('img-modal-img');
+
+imgInput.addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file)return;
+  if(file.size>10*1024*1024){addSys('⚠️ 图片不能超过10MB');imgInput.value='';return;}
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const dataUrl=ev.target.result;
+    const mediaType=file.type||'image/jpeg';
+    const base64=dataUrl.split(',')[1];
+    pendingImage={base64,mediaType,dataUrl};
+    imgPreviewImg.src=dataUrl;
+    imgPreview.classList.add('has-img');
+    userInput.placeholder='配图已选，输入你想讨论的内容…';
+  };
+  reader.readAsDataURL(file);
+  imgInput.value='';
+});
+
+imgRemove.addEventListener('click',()=>{
+  pendingImage=null;
+  imgPreview.classList.remove('has-img');
+  imgPreviewImg.src='';
+  userInput.placeholder='发表你的看法… (Enter 发送)';
+});
+
+// Click message images to zoom
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('msg-img')){
+    imgModalImg.src=e.target.src;
+    imgModal.classList.add('show');
+  }
+});
 
 // ===== CONTROLS =====
 playBtn.addEventListener('click',()=>{if(state.isEnded)return;state.isPaused=false;state.deepening=false;setStatus('running','讨论中');updateButtons();});
@@ -879,14 +964,18 @@ function addSys(text){const t=new Date().toLocaleTimeString('zh-CN',{hour:'2-dig
 
 // ===== AUTO-TEST =====
 // API preset buttons
-const PRESETS={deepseek:{url:'https://api.deepseek.com/v1/chat/completions',model:'deepseek-chat',hint:'填入你的 DeepSeek API Key'},openai:{url:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',hint:'填入你的 OpenAI API Key'}};
-$('preset-deepseek').addEventListener('click',()=>{apiUrl.value=PRESETS.deepseek.url;apiModel.value=PRESETS.deepseek.model;apiKey.placeholder=PRESETS.deepseek.hint;apiKey.focus();});
-$('preset-openai').addEventListener('click',()=>{apiUrl.value=PRESETS.openai.url;apiModel.value=PRESETS.openai.model;apiKey.placeholder=PRESETS.openai.hint;apiKey.focus();});
-$('preset-custom').addEventListener('click',()=>{apiUrl.value='';apiKey.value='';apiModel.value='';apiUrl.placeholder='输入你的 API 地址';apiKey.placeholder='输入你的 API Key';apiModel.placeholder='输入模型名';apiUrl.focus();});
+const PRESETS={
+  deepseek:{url:'https://api.deepseek.com/v1/chat/completions',model:'deepseek-chat',hint:'填入你的 DeepSeek API Key'},
+  openai:{url:'https://api.openai.com/v1/chat/completions',model:'gpt-4o-mini',hint:'填入你的 OpenAI API Key'},
+  custom:{url:'https://vip.aipro.love/v1/chat/completions',model:'gpt-5.5',visionModel:'gpt-5.5',key:'sk-vBMJRQIwdx0yeQnF9jTPh2glCUvABrWWFsNbxZTFMMHDCF2E'}
+};
+$('preset-deepseek').addEventListener('click',()=>{apiUrl.value=PRESETS.deepseek.url;apiModel.value=PRESETS.deepseek.model;apiKey.value='';document.getElementById('api-vision-model').value=PRESETS.deepseek.visionModel||'';apiKey.placeholder=PRESETS.deepseek.hint;apiKey.focus();saveAPIConfig();});
+$('preset-openai').addEventListener('click',()=>{apiUrl.value=PRESETS.openai.url;apiModel.value=PRESETS.openai.model;apiKey.value='';document.getElementById('api-vision-model').value=PRESETS.openai.visionModel||'';apiKey.placeholder=PRESETS.openai.hint;apiKey.focus();saveAPIConfig();});
+$('preset-custom').addEventListener('click',()=>{apiUrl.value=PRESETS.custom.url;apiModel.value=PRESETS.custom.model;apiKey.value=PRESETS.custom.key||'';document.getElementById('api-vision-model').value=PRESETS.custom.visionModel||'';apiKey.focus();saveAPIConfig();});
 // Auto-detect local storage
-try{const saved=JSON.parse(localStorage.getItem('roundtable_api')||'{}');if(saved.url)apiUrl.value=saved.url;if(saved.key)apiKey.value=saved.key;if(saved.model)apiModel.value=saved.model;}catch(e){}
-function saveAPIConfig(){try{localStorage.setItem('roundtable_api',JSON.stringify({url:apiUrl.value,key:apiKey.value,model:apiModel.value}));}catch(e){}}
-[apiUrl,apiKey,apiModel].forEach(el=>el.addEventListener('change',saveAPIConfig));
+try{const saved=JSON.parse(localStorage.getItem('roundtable_api')||'{}');if(saved.url&&saved.key&&saved.model!=='claude-opus-4-7'){apiUrl.value=saved.url;apiKey.value=saved.key;apiModel.value=saved.model||'';const vm=document.getElementById('api-vision-model');vm.value=saved.visionModel||saved.model||'';}else{apiUrl.value=PRESETS.custom.url;apiModel.value=PRESETS.custom.model;apiKey.value=PRESETS.custom.key||'';document.getElementById('api-vision-model').value=PRESETS.custom.visionModel||PRESETS.custom.model||'';saveAPIConfig();}}catch(e){}
+function saveAPIConfig(){try{localStorage.setItem('roundtable_api',JSON.stringify({url:apiUrl.value,key:apiKey.value,model:apiModel.value,visionModel:document.getElementById('api-vision-model').value}));}catch(e){}}
+[apiUrl,apiKey,apiModel,document.getElementById('api-vision-model')].forEach(el=>el.addEventListener('change',saveAPIConfig));
 </script>
 </body>
 </html>
